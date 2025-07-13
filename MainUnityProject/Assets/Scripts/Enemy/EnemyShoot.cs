@@ -39,6 +39,7 @@ public class EnemyShoot : MonoBehaviour {
 		}
 	}
 	void OnDrawGizmos() {
+		if(!enemySpawner) return;
 		Gizmos.color = hit ? Color.green : Color.red;
 		Gizmos.DrawRay(transform.position,transform.forward * enemySpawner.targetRange);
 	}

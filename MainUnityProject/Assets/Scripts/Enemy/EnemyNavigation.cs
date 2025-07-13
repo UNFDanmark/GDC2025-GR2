@@ -40,7 +40,7 @@ public class EnemyNavigation : MonoBehaviour {
 
 	void OnDrawGizmos()
 	{
-		
+		if(!navMeshAgent) return;
 		if (Stopped()) Gizmos.color = Color.green;
 		else Gizmos.color = Color.red;
 		Gizmos.DrawWireSphere(transform.position,navMeshAgent.stoppingDistance);
