@@ -20,6 +20,8 @@ public class EnemySpawner : MonoBehaviour
     public float stoppedEnemyRotationSpeed;
     [Header("Enemy Attack")]
     public GameObject bulletPrefab;
+
+    public float bulletKnockback;
     public float stoppedEnemyShootModifier;
     public float stareTimeBeforeShot;
     public float targetRange;

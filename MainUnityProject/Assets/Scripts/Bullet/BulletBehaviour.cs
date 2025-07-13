@@ -26,8 +26,9 @@ public class BulletBehaviour : MonoBehaviour
 	void OnCollisionEnter(Collision other) {
 		if (other.gameObject.CompareTag("Player")) {
 			var _stats = other.gameObject.GetComponent<PlayerStats>();
-			_stats.health -= playerDamage + baseDamage;
-			if (_stats.health <= 0) _stats.Die();
+			print(playerDamage+baseDamage);
+			_stats.DoDamage(playerDamage + baseDamage);
+			if (_stats.GetHealth() <= 0) _stats.Die();
 		}
 		else if (other.gameObject.CompareTag("Enemy")) {
 			var _stats = other.gameObject.GetComponent<EnemyStats>();

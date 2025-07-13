@@ -39,4 +39,12 @@ public class EnemyNavigation : MonoBehaviour {
 	public bool Stopped() {
 		return navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance;
 	}
+
+	void OnDrawGizmos()
+	{
+		
+		if (Stopped()) Gizmos.color = Color.green;
+		else Gizmos.color = Color.red;
+		Gizmos.DrawWireSphere(transform.position,navMeshAgent.stoppingDistance);
+	}
 }

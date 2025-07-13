@@ -22,6 +22,7 @@ public class EnemyShoot : MonoBehaviour {
 		_bs.OverrideEnemyDamage(enemySpawner.damageToOtherEnemies);
 		_bs.OverridePlayerDamage(enemySpawner.damageToPlayers);
 		var _rb = _bullet.GetComponent<Rigidbody>();
+		_rb.mass = enemySpawner.bulletKnockback;
 		_rb.linearVelocity = transform.forward * enemySpawner.bulletSpeed;
 		// ReSharper restore Unity.PerformanceCriticalCodeInvocation
 	}
