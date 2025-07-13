@@ -8,12 +8,10 @@ public class EnemyNavigation : MonoBehaviour {
 	// PRIVATE
 	EnemySpawner enemySpawner;
 	NavMeshAgent navMeshAgent;
-	Transform playerTransform;
 	// ---------------- METHODS ----------------
 	void Awake()
 	{
 		navMeshAgent = GetComponent<NavMeshAgent>();
-		playerTransform = GameObject.FindWithTag("Player").transform;
 	}
 	public void SetScript(EnemySpawner script) {
 		enemySpawner = script;
@@ -24,13 +22,13 @@ public class EnemyNavigation : MonoBehaviour {
 	}
 	void Update()
 	{
-		if (!playerTransform) {
+		if (!enemySpawner.targetPlayer) {
 			navMeshAgent.SetDestination(transform.position);
 			return;
 		}
-		navMeshAgent.SetDestination(playerTransform.position);
+		navMeshAgent.SetDestination(enemySpawner.targetPlayer.transform.position);
 		if (Stopped()) {
-			var _playerDir = playerTransform.position - transform.position;
+			var _playerDir = enemySpawner.targetPlayer.transform.position - transform.position;
 			_playerDir.Normalize();
 			var _desiredRotation = Quaternion.LookRotation(_playerDir);
 			transform.rotation = Quaternion.RotateTowards(transform.rotation, _desiredRotation, enemySpawner.stoppedEnemyRotationSpeed);

@@ -21,9 +21,6 @@ public class EnemyShoot : MonoBehaviour {
 		_bs.SetOrigin(gameObject);
 		_bs.OverrideEnemyDamage(enemySpawner.damageToOtherEnemies);
 		_bs.OverridePlayerDamage(enemySpawner.damageToPlayers);
-		var _rb = _bullet.GetComponent<Rigidbody>();
-		_rb.mass = enemySpawner.bulletKnockback;
-		_rb.linearVelocity = transform.forward * enemySpawner.bulletSpeed;
 		// ReSharper restore Unity.PerformanceCriticalCodeInvocation
 	}
 	void Awake() {
@@ -31,20 +28,18 @@ public class EnemyShoot : MonoBehaviour {
 	}
 	void Update() {
 		hit = Physics.Raycast(transform.position, transform.forward, out hitInfo,enemySpawner.targetRange);
+		hit = hit && hitInfo.transform == enemySpawner.targetPlayer.transform;
 		if (enemyNavigation.Stopped()) stareTimer += Time.deltaTime * enemySpawner.stoppedEnemyShootModifier;
-		else if (hit && hitInfo.transform.CompareTag("Player")) stareTimer += Time.deltaTime;
+		else if (hit) stareTimer += Time.deltaTime;
 		else stareTimer -= Time.deltaTime * enemySpawner.stareTimeDecreaseModifier;
-		
 		if (stareTimer >= enemySpawner.stareTimeBeforeShot) {
 			// ReSharper disable once Unity.PerformanceCriticalCodeInvocation
 			Shoot();
 			stareTimer = 0;
 		}
 	}
-	void OnDrawGizmos()
-	{
-		if (hit && hitInfo.transform.CompareTag("Player")) Gizmos.color = Color.green;
-		else Gizmos.color = Color.red;
+	void OnDrawGizmos() {
+		Gizmos.color = hit ? Color.green : Color.red;
 		Gizmos.DrawRay(transform.position,transform.forward * enemySpawner.targetRange);
 	}
 }

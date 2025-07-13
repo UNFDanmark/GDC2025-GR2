@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour
 {
+    [SerializeField] string playerID;
     [SerializeField] Slider uiHealthBar;
     [SerializeField] int maxHealth;
     [SerializeField] float oofTime;
@@ -13,22 +14,13 @@ public class PlayerStats : MonoBehaviour
     Material originalPlayerMat;
     float oofTimer;
     int health;
-
-    void Awake()
-    {
-        meshRenderer = GetComponentInChildren<MeshRenderer>();
-        originalPlayerMat = meshRenderer.material;
-    }
-
-    public void SetHealth(int amount)
-    {
-        health = amount;
-    }
-
+    public string ID => playerID;
+    static int initializedPlayers;
+    
     public void DoDamage(int amount)
     {
         health -= amount;
-        if (amount <= 0) Die();
+        if (health <= 0) Die();
         else
         {
             meshRenderer.material = oofMaterial;
@@ -36,27 +28,22 @@ public class PlayerStats : MonoBehaviour
             uiHealthBar.value = health;
         }
     }
-
-    public int GetHealth()
-    {
-        return health;
+    void Awake() {
+        meshRenderer = GetComponentInChildren<MeshRenderer>();
+        originalPlayerMat = meshRenderer.material;
     }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         uiHealthBar.maxValue = maxHealth;
         health = maxHealth;
         uiHealthBar.value = health;
     }
-
-    // Update is called once per frame
     void Update()
     {
         oofTimer += Time.deltaTime;
         if (oofTimer >= oofTime) meshRenderer.material = originalPlayerMat;
     }
-
-    public void Die()
+    void Die()
     {
         SceneManager.LoadScene("Enemy AI");
     }

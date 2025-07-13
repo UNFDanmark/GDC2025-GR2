@@ -10,19 +10,19 @@ public class PlayerMovement : MonoBehaviour {
     [SerializeField] float rotationSpeed;
     [SerializeField] InputAction rotationAction;
     // PRIVATE
-    Rigidbody rigidbody;
+    Rigidbody rb;
     // ---------------- METHODS ----------------
     void Awake() {
-        rigidbody = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
         move.Enable();
         rotationAction.Enable();
     }
     void Update() {
         var _movementVector = move.ReadValue<Vector2>();
-        var _newVelocity = rigidbody.linearVelocity;
+        var _newVelocity = rb.linearVelocity;
         _newVelocity.x = _movementVector.x * speed;
         _newVelocity.z = _movementVector.y * speed;
-        rigidbody.linearVelocity = _newVelocity;
+        rb.linearVelocity = _newVelocity;
         transform.Rotate(0, rotationAction.ReadValue<float>() * rotationSpeed, 0);
     }
 }

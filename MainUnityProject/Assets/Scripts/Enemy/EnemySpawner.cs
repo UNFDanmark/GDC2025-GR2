@@ -20,17 +20,16 @@ public class EnemySpawner : MonoBehaviour
     public float stoppedEnemyRotationSpeed;
     [Header("Enemy Attack")]
     public GameObject bulletPrefab;
-
-    public float bulletKnockback;
+    public GameObject targetPlayer;
     public float stoppedEnemyShootModifier;
     public float stareTimeBeforeShot;
     public float targetRange;
-    public float bulletSpeed;
     public float stareTimeDecreaseModifier;
     public int damageToPlayers;
     public int damageToOtherEnemies;
     [Header("Enemy Stats")]
     public int enemyHealth;
+    
     // PRIVATE
     float spawnTimer;
     Transform playerTransform;
@@ -38,7 +37,6 @@ public class EnemySpawner : MonoBehaviour
     // ---------------- METHODS ----------------
     void Awake() {
         GetComponent<MeshRenderer>().enabled = false;
-        playerTransform = GameObject.FindWithTag("Player").transform;
     }
     void Start() {
         if (firstSpawnInstant) spawnTimer = spawnCooldown;
@@ -46,7 +44,6 @@ public class EnemySpawner : MonoBehaviour
     }
     void Update()
     {
-        if (!playerTransform) return;
         spawnTimer += Time.deltaTime;
         // ReSharper disable Unity.PerformanceCriticalCodeInvocation
         if (remainingSpawns > 0 && spawnTimer >= spawnCooldown)
