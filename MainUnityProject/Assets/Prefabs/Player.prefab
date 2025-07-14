@@ -275,7 +275,7 @@ GameObject:
   - component: {fileID: 5769663824958562197}
   - component: {fileID: 6405781487976157397}
   - component: {fileID: 1660926305876751771}
-  - component: {fileID: 7566862952749564577}
+  - component: {fileID: 1237876955108461347}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -297,6 +297,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2734161679507680659}
+  - {fileID: 2289677418724129139}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6803806301909288370
@@ -336,8 +337,8 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 0
+  m_Constraints: 116
+  m_CollisionDetection: 1
 --- !u!136 &5203412680779776866
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -373,9 +374,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bd520c8e3e108e4da1f3d19c5391dee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraMovement: {fileID: 0}
   playerID: Player1
   uiHealthBar: {fileID: 0}
-  maxHealth: 20
+  maxHealth: 100
   hitTime: 0.1
   materials:
   - {fileID: 2100000, guid: 6199029fb80e55248908e1efb83cca9f, type: 2}
@@ -383,7 +385,8 @@ MonoBehaviour:
   - {fileID: 2100000, guid: d10fdb025e01d4146ade55be231cccc5, type: 2}
   - {fileID: 2100000, guid: 42605a4b68699ee4eae9e0809dc0c81f, type: 2}
   canRespawn: 0
-  speed: 4
+  spawnPoint: {fileID: 0}
+  speed: 5
   move:
     m_Name: Move
     m_Type: 0
@@ -448,7 +451,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parryCooldown: 2
-  addedBulletDamage: 0
   addedBulletSpeed: 0
   parryKey:
     m_Name: Parry Key
@@ -467,7 +469,7 @@ MonoBehaviour:
       m_Action: Parry Key
       m_Flags: 0
     m_Flags: 0
-  parryDuration: 5
+  parryDuration: 0.3
 --- !u!136 &1660926305876751771
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -491,7 +493,7 @@ CapsuleCollider:
   m_Height: 3
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &7566862952749564577
+--- !u!114 &1237876955108461347
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -500,6 +502,51 @@ MonoBehaviour:
   m_GameObject: {fileID: 8441008217354624314}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3104d19125ed34242a722ead2119a35f, type: 3}
+  m_Script: {fileID: 11500000, guid: c4f2b550875100e44aab4c1571f364f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 0}
+  damageToOtherPlayer: 0
+  damageToEnemy: 0
+  shootingPoint: {fileID: 0}
+  shootingCooldown: 0
+  shootKey:
+    m_Name: Shoot Key
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: d99e7ece-4ee8-4ba4-8b21-58e10cb72f4b
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+--- !u!1 &9200465173989602913
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2289677418724129139}
+  m_Layer: 7
+  m_Name: ShootingPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2289677418724129139
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9200465173989602913}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0.93}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 27394600783794939}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

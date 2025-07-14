@@ -4,9 +4,11 @@ using UnityEngine;
 public class PlayerRespawn : MonoBehaviour {
     // ---------------- FIELDS ----------------
     [SerializeField] float respawnTime;
-    [SerializeField] float respawnTimeMin;
     [SerializeField] float respawnTimeMax;
+    [SerializeField] float respawnTimeMin;
     [SerializeField] Transform respawnLocation;
+    [SerializeField] float timeFadeModifier;
+    [SerializeField] float deathTimeAdd;
     // PRIVATE
     float respawnRemainingTime;
     bool respawning;
@@ -16,7 +18,10 @@ public class PlayerRespawn : MonoBehaviour {
         playerStats = GetComponent<PlayerStats>();
     }
     void Update() {
+        print(respawnTime);
         respawnRemainingTime -= Time.deltaTime;
+        if (!respawning) respawnTime -= Time.deltaTime * timeFadeModifier;
+        if (respawnTime < respawnTimeMin) respawnTime = respawnTimeMin;
         if (respawning && respawnRemainingTime < 0) {
             // ReSharper disable Unity.PerformanceCriticalCodeInvocation
             transform.position = respawnLocation.position;
@@ -37,6 +42,8 @@ public class PlayerRespawn : MonoBehaviour {
         }
     }
     public void StartRespawning() {
+        respawnTime += deathTimeAdd;
+        if (respawnTime > respawnTimeMax) respawnTime = respawnTimeMax;
         respawnRemainingTime = respawnTime;
         respawning = true;
     }
