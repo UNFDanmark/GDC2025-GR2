@@ -33,10 +33,13 @@ public class EnemySpawner : MonoBehaviour
     // PRIVATE
     float spawnTimer;
     Transform playerTransform;
+    MeshRenderer meshRenderer;
     int remainingSpawns;
     // ---------------- METHODS ----------------
     void Awake() {
-        GetComponent<MeshRenderer>().enabled = false;
+        meshRenderer = GetComponent<MeshRenderer>();
+        meshRenderer.enabled = false;
+
     }
     void Start() {
         if (firstSpawnInstant) spawnTimer = spawnCooldown;

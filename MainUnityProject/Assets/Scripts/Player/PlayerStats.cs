@@ -5,18 +5,20 @@ using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour
 {
+    // ---------------- FIELDS ----------------
     [SerializeField] string playerID;
     [SerializeField] Slider uiHealthBar;
     [SerializeField] int maxHealth;
     [SerializeField] float oofTime;
     [SerializeField] Material oofMaterial;
+    public string ID => playerID;
+    // PRIVATE
     MeshRenderer meshRenderer;
     Material originalPlayerMat;
     float oofTimer;
     int health;
-    public string ID => playerID;
     static int initializedPlayers;
-    
+    // ---------------- METHODS ----------------
     public void DoDamage(int amount)
     {
         health -= amount;

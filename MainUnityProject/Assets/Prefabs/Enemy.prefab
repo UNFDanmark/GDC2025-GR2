@@ -150,7 +150,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bdf13961bf05a94ea6c7a2e271540bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
+  oofTime: 0.1
+  oofMaterial: {fileID: 2100000, guid: 42605a4b68699ee4eae9e0809dc0c81f, type: 2}
 --- !u!54 &2278838477887180250
 Rigidbody:
   m_ObjectHideFlags: 0
