@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,13 +9,16 @@ public class EnemyNavigation : MonoBehaviour {
 	// PRIVATE
 	EnemySpawner enemySpawner;
 	NavMeshAgent navMeshAgent;
+	PlayerStats playerStats;
 	// ---------------- METHODS ----------------
 	void Awake()
 	{
 		navMeshAgent = GetComponent<NavMeshAgent>();
 	}
+	[SuppressMessage("ReSharper", "Unity.PerformanceCriticalCodeInvocation")]
 	public void SetScript(EnemySpawner script) {
 		enemySpawner = script;
+		playerStats = enemySpawner.targetPlayer.GetComponent<PlayerStats>();
 		// AGENT SETUP
 		navMeshAgent.speed = enemySpawner.walkSpeed;
 		navMeshAgent.angularSpeed = enemySpawner.turnSpeed;
@@ -22,7 +26,7 @@ public class EnemyNavigation : MonoBehaviour {
 	}
 	void Update()
 	{
-		if (!enemySpawner.targetPlayer) {
+		if (!enemySpawner.targetPlayer || playerStats.GetState() is PlayerStats.STATE_DEAD) {
 			navMeshAgent.SetDestination(transform.position);
 			return;
 		}

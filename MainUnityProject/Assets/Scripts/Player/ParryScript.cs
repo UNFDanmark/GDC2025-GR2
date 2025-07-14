@@ -6,45 +6,40 @@ public class ParryScript : MonoBehaviour
 {
     // ---------------- FIELDS ----------------
     [SerializeField] float parryCooldown;
-	[SerializeField] int newBulletDamage;
-	[SerializeField] float newBulletSpeed;
+	public int addedBulletDamage;
+	public float addedBulletSpeed;
 	[SerializeField] InputAction parryKey;
 	[SerializeField] float parryDuration;
-	[SerializeField] Material parryMaterial;
-	public bool parryActive;
     // PRIVATE
     float parryCooldownTimer;
     float parryDurationTimer;
-    PlayerMovement playerMovement;
+    PlayerStats playerStats;
     Vector3 reflectDirection;
-    MeshRenderer meshRenderer;
-    Material originalMaterial;
+    CapsuleCollider parryTrigger;
     // ---------------- METHODS ----------------
     void Awake() {
-	    playerMovement = GetComponent<PlayerMovement>();
-	    meshRenderer = GetComponentInChildren<MeshRenderer>();
-	    originalMaterial = meshRenderer.material;
+	    playerStats = GetComponent<PlayerStats>();
+	    foreach (var _collider in GetComponents<CapsuleCollider>()) {
+		    if (_collider.isTrigger) parryTrigger = _collider;
+	    }
     }
     void Start() {
 	    parryCooldownTimer = parryCooldown;
 	    parryKey.Enable();
     }
     void Update() {
+	    if (playerStats.GetState() is PlayerStats.STATE_DEAD) return;
 	    parryCooldownTimer += Time.deltaTime;
 	    parryDurationTimer += Time.deltaTime;
-	    print(parryActive);
-	    if (parryActive && parryDurationTimer >= parryDuration) {
-		    parryActive = false;
-		    meshRenderer.material = originalMaterial;
+	    if (playerStats.GetParry() && parryDurationTimer >= parryDuration) {
+		    playerStats.SetState(PlayerStats.STATE_DEFAULT);
+		    parryTrigger.enabled = false;
 	    }
 	    if (parryKey.WasPressedThisFrame() && parryCooldownTimer >= parryCooldown) {
-		    Parry();
+		    parryCooldownTimer = 0;
+		    parryDurationTimer = 0;
+		    playerStats.SetState(PlayerStats.STATE_PARRY);
+		    parryTrigger.enabled = true;
 	    }
-    }
-    void Parry() {
-	    parryCooldownTimer = 0;
-	    parryDurationTimer = 0;
-	    parryActive = true;
-	    meshRenderer.material = parryMaterial;
     }
 }

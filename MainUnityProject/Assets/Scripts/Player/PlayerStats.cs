@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -9,44 +10,103 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] string playerID;
     [SerializeField] Slider uiHealthBar;
     [SerializeField] int maxHealth;
-    [SerializeField] float oofTime;
-    [SerializeField] Material oofMaterial;
+    [SerializeField] float hitTime;
+    [SerializeField] Material[] materials;
+    [SerializeField] bool canRespawn;
+    public float speed;
+    public InputAction move;
+    public float rotationSpeed;
+    public const int STATE_DEFAULT = 0, STATE_PARRY = 1, STATE_PARRY_HIT = 2, STATE_HIT = 3, STATE_DEAD = 4;
+    [HideInInspector] public ParryScript parry;
     public string ID => playerID;
     // PRIVATE
+    int state;
+    bool oofed;
+    float hitTimer;
     MeshRenderer meshRenderer;
-    Material originalPlayerMat;
-    float oofTimer;
+    PlayerRespawn playerRespawn;
     int health;
     static int initializedPlayers;
     // ---------------- METHODS ----------------
+    public void SetState(int value) {
+        if (value is STATE_HIT or STATE_PARRY_HIT) {
+            oofed = true;
+            hitTimer = 0;
+        }
+        meshRenderer.material = materials[value];
+        state = value;
+    }
+    public int GetState() {
+        return state;
+    }
+    public bool GetParry() {
+        return state switch {
+            STATE_PARRY => true,
+            STATE_PARRY_HIT => true,
+            _ => false
+        };
+    }
     public void DoDamage(int amount)
     {
         health -= amount;
-        if (health <= 0) Die();
+        if (health <= 0) {
+            health = 0;
+            uiHealthBar.value = health;
+            Die();
+        }
         else
         {
-            meshRenderer.material = oofMaterial;
-            oofTimer = 0;
             uiHealthBar.value = health;
         }
     }
     void Awake() {
         meshRenderer = GetComponentInChildren<MeshRenderer>();
-        originalPlayerMat = meshRenderer.material;
+        playerRespawn = GetComponent<PlayerRespawn>();
+        SetState(STATE_DEFAULT);
+        parry = GetComponent<ParryScript>();
+        move.Enable();
     }
     void Start()
     {
         uiHealthBar.maxValue = maxHealth;
         health = maxHealth;
         uiHealthBar.value = health;
+
     }
     void Update()
     {
-        oofTimer += Time.deltaTime;
-        if (oofTimer >= oofTime) meshRenderer.material = originalPlayerMat;
+        if (state is STATE_DEAD) return;
+        hitTimer += Time.deltaTime;
+        if (oofed && hitTimer >= hitTime) {
+            oofed = false;
+            switch (state) {
+                case STATE_HIT:
+                    SetState(STATE_DEFAULT);
+                    break;
+                case STATE_PARRY_HIT:
+                    SetState(STATE_PARRY);
+                    break;
+            }
+        }
     }
     void Die()
     {
-        SceneManager.LoadScene("Enemy AI");
+        if (canRespawn) {
+            var _renders = GetComponentsInChildren<MeshRenderer>();
+            foreach (var _render in _renders) {
+                _render.enabled = false;
+            }
+            GetComponent<Rigidbody>().isKinematic = false;
+            var _colliders = GetComponents<CapsuleCollider>();
+            foreach (var _collider in _colliders) {
+                _collider.enabled = false;
+            }
+            playerRespawn.StartRespawning();
+            state = STATE_DEAD;
+        }
+        else {
+            SceneManager.LoadScene("Enemy AI");
+        }
+        
     }
 }

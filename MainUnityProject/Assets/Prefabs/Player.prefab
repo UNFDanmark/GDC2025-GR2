@@ -182,7 +182,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2734161679507680659}
   - component: {fileID: 3729363931605666574}
-  - component: {fileID: 3843590254260074804}
+  - component: {fileID: 7316116047303829189}
   m_Layer: 7
   m_Name: Body
   m_TagString: Untagged
@@ -215,7 +215,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8196110353135471862}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &3843590254260074804
+--- !u!23 &7316116047303829189
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -274,6 +274,8 @@ GameObject:
   - component: {fileID: 5203412680779776866}
   - component: {fileID: 5769663824958562197}
   - component: {fileID: 6405781487976157397}
+  - component: {fileID: 1660926305876751771}
+  - component: {fileID: 7566862952749564577}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -309,57 +311,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50954c9cb92594b45b02a63bd8af7d17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
-  move:
-    m_Name: Move
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 85821cb3-59a6-4901-9e62-0250166cacfb
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 2D Vector
-      m_Id: e00bb33e-f99e-4da5-8b16-4e90dddf505b
-      m_Path: 2DVector
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Move
-      m_Flags: 4
-    - m_Name: up
-      m_Id: 47075975-a3d3-4bd9-82da-229d50fee3f4
-      m_Path: <Keyboard>/w
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Move
-      m_Flags: 8
-    - m_Name: down
-      m_Id: 470f5cfe-3e17-4777-a43b-76efc0ca2c99
-      m_Path: <Keyboard>/s
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Move
-      m_Flags: 8
-    - m_Name: left
-      m_Id: 1c575044-f3d9-4f29-b929-b924266e52bb
-      m_Path: <Keyboard>/a
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Move
-      m_Flags: 8
-    - m_Name: right
-      m_Id: 29c0a694-e936-4c0c-a71e-cbf229a95d17
-      m_Path: <Keyboard>/d
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Move
-      m_Flags: 8
-    m_Flags: 0
-  rotationSpeed: 4
 --- !u!54 &1958023590164183296
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -425,8 +376,65 @@ MonoBehaviour:
   playerID: Player1
   uiHealthBar: {fileID: 0}
   maxHealth: 20
-  oofTime: 0.1
-  oofMaterial: {fileID: 2100000, guid: 42605a4b68699ee4eae9e0809dc0c81f, type: 2}
+  hitTime: 0.1
+  materials:
+  - {fileID: 2100000, guid: 6199029fb80e55248908e1efb83cca9f, type: 2}
+  - {fileID: 2100000, guid: 26ed48582cd05b243bb6fa6ffb16810e, type: 2}
+  - {fileID: 2100000, guid: d10fdb025e01d4146ade55be231cccc5, type: 2}
+  - {fileID: 2100000, guid: 42605a4b68699ee4eae9e0809dc0c81f, type: 2}
+  canRespawn: 0
+  speed: 4
+  move:
+    m_Name: Move
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: a7deb7b2-2212-48ef-b1f6-ce3f30443380
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 2D Vector
+      m_Id: d381d6e6-fee4-4f44-9751-19b2a2ac262d
+      m_Path: 2DVector
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Move
+      m_Flags: 4
+    - m_Name: up
+      m_Id: dc1c5f8c-4804-4424-8518-d8ebca408f79
+      m_Path: <Keyboard>/w
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Move
+      m_Flags: 8
+    - m_Name: down
+      m_Id: 4fe3a9a1-843f-49bc-bd03-30060ae6d566
+      m_Path: <Keyboard>/s
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Move
+      m_Flags: 8
+    - m_Name: left
+      m_Id: f73c31aa-8df8-41a2-a704-0f77aa3def89
+      m_Path: <Keyboard>/a
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Move
+      m_Flags: 8
+    - m_Name: right
+      m_Id: 86f2757d-9170-42d9-8a75-77b1e9e59049
+      m_Path: <Keyboard>/d
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Move
+      m_Flags: 8
+    m_Flags: 0
+  rotationSpeed: 5
+  parry: {fileID: 0}
 --- !u!114 &6405781487976157397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -439,9 +447,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 392886828b716824db55d200dcb382d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parryCooldown: 0
-  newBulletDamage: 0
-  newBulletSpeed: 0
+  parryCooldown: 2
+  addedBulletDamage: 0
+  addedBulletSpeed: 0
   parryKey:
     m_Name: Parry Key
     m_Type: 0
@@ -449,8 +457,49 @@ MonoBehaviour:
     m_Id: ea2a0b05-758d-4ec8-a971-7d56e926b32b
     m_Processors: 
     m_Interactions: 
-    m_SingletonActionBindings: []
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 27bcc5e3-47a3-4c9e-bc54-2050e0261cf5
+      m_Path: <Keyboard>/space
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Parry Key
+      m_Flags: 0
     m_Flags: 0
-  parryDuration: 0
-  parryMaterial: {fileID: 0}
-  parryActive: 0
+  parryDuration: 5
+--- !u!136 &1660926305876751771
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8441008217354624314}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Radius: 1
+  m_Height: 3
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &7566862952749564577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8441008217354624314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3104d19125ed34242a722ead2119a35f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

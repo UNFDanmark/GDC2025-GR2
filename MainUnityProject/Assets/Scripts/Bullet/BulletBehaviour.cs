@@ -25,12 +25,10 @@ public class BulletBehaviour : MonoBehaviour
 		sphereCollider = GetComponent<SphereCollider>();
 		originalBounce = sphereCollider.material;
 	}
-
 	void Start() {
 		rb.mass = mass;
 		rb.linearVelocity = bulletOrigin.transform.forward * bulletSpeed;
 	}
-
 	public void SetOrigin(GameObject origin) {
 		bulletOrigin = origin;
 	}
@@ -52,6 +50,7 @@ public class BulletBehaviour : MonoBehaviour
 	void OnCollisionEnter(Collision other) {
 		if (other.gameObject.CompareTag("Player")) {
 			var _player = other.gameObject.GetComponent<PlayerStats>();
+			_player.SetState(PlayerStats.STATE_HIT);
 			_player.DoDamage(playerDamage + baseDamage);
 			Destroy(gameObject);
 		}
@@ -60,7 +59,6 @@ public class BulletBehaviour : MonoBehaviour
 			_enemy.DoDamage(enemyDamage + baseDamage);
 			Destroy(gameObject);
 		}
-
 		if (ricochets > 0) {
 			if (!bounceCooldown) {
 				ricochets--;
@@ -70,5 +68,19 @@ public class BulletBehaviour : MonoBehaviour
 			}
 		} 
 		else Destroy(gameObject);
+	}
+	void OnTriggerEnter(Collider other) {
+		if (other.gameObject.CompareTag("Player")) {
+			var _player = other.gameObject.GetComponent<PlayerStats>();
+			if (_player.GetParry()) {
+				var _newDirection = other.gameObject.transform.forward;
+				_newDirection *= rb.linearVelocity.magnitude + _player.parry.addedBulletSpeed;
+				var _newPosition = other.gameObject.transform.position + other.gameObject.transform.forward;
+				_newPosition.y = transform.position.y;
+				transform.position = _newPosition;
+				rb.linearVelocity = _newDirection;
+				_player.SetState(PlayerStats.STATE_PARRY_HIT);
+			}
+		}
 	}
 }

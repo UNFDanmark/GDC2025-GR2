@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 
 public class EnemyShoot : MonoBehaviour {
@@ -10,9 +11,13 @@ public class EnemyShoot : MonoBehaviour {
 	RaycastHit hitInfo;
 	float stareTimer;
 	bool hit;
+	PlayerStats playerStats;
+
 	// ---------------- METHODS ----------------
+	[SuppressMessage("ReSharper", "Unity.PerformanceCriticalCodeInvocation")]
 	public void SetScript(EnemySpawner script) {
 		enemySpawner = script;
+		playerStats = enemySpawner.targetPlayer.GetComponent<PlayerStats>();
 	}
 	void Shoot() {
 		// ReSharper disable Unity.PerformanceCriticalCodeInvocation
@@ -27,6 +32,7 @@ public class EnemyShoot : MonoBehaviour {
 		enemyNavigation = GetComponentInParent<EnemyNavigation>();
 	}
 	void Update() {
+		if (playerStats.GetState() is PlayerStats.STATE_DEAD) return;
 		hit = Physics.Raycast(transform.position, transform.forward, out hitInfo,enemySpawner.targetRange);
 		hit = hit && hitInfo.transform == enemySpawner.targetPlayer.transform;
 		if (enemyNavigation.Stopped()) stareTimer += Time.deltaTime * enemySpawner.stoppedEnemyShootModifier;
