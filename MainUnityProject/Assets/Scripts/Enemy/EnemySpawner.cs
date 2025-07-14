@@ -11,7 +11,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] GameObject enemyPrefab;
     [SerializeField] float spawnCooldown;
     [SerializeField] int totalSpawnAmount;
-    [SerializeField] bool firstSpawnInstant;
+    [SerializeField] float firstSpawnTime;
     [SerializeField] bool randomSpawnHeight;
     [Header("Enemy Navigation")] 
     public float walkSpeed;
@@ -29,9 +29,8 @@ public class EnemySpawner : MonoBehaviour
     public int damageToOtherEnemies;
     [Header("Enemy Stats")]
     public int enemyHealth;
-    
     // PRIVATE
-    float spawnTimer;
+    float remainingSpawnTime;
     Transform playerTransform;
     MeshRenderer meshRenderer;
     int remainingSpawns;
@@ -42,14 +41,14 @@ public class EnemySpawner : MonoBehaviour
 
     }
     void Start() {
-        if (firstSpawnInstant) spawnTimer = spawnCooldown;
+        remainingSpawnTime = firstSpawnTime;
         remainingSpawns = totalSpawnAmount;
     }
     void Update()
     {
-        spawnTimer += Time.deltaTime;
+        remainingSpawnTime -= Time.deltaTime;
         // ReSharper disable Unity.PerformanceCriticalCodeInvocation
-        if (remainingSpawns > 0 && spawnTimer >= spawnCooldown)
+        if (remainingSpawns > 0 && remainingSpawnTime < 0)
         {
             var _spawnPosition = transform.position;
             _spawnPosition.x += Random.Range(-transform.localScale.x / 2, transform.localScale.x / 2);
@@ -60,7 +59,7 @@ public class EnemySpawner : MonoBehaviour
             _enemy.gameObject.GetComponent<EnemyNavigation>().SetScript(this);
             _enemy.gameObject.GetComponent<EnemyStats>().SetScript(this);
             remainingSpawns--;
-            spawnTimer = 0;
+            remainingSpawnTime = spawnCooldown;
         }
         // ReSharper restore Unity.PerformanceCriticalCodeInvocation
     }

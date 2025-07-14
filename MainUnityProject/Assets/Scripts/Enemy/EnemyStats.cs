@@ -10,7 +10,7 @@ public class EnemyStats : MonoBehaviour
     EnemySpawner enemySpawner;
     int maxHealth;
     int health;
-    float oofTimer;
+    float remainingOofTime;
     Material originalEnemyMat;
     MeshRenderer meshRenderer;
     // ---------------- METHODS ----------------
@@ -20,8 +20,8 @@ public class EnemyStats : MonoBehaviour
     }
     void Update()
     {
-        oofTimer += Time.deltaTime;
-        if (oofTimer >= oofTime) meshRenderer.material = originalEnemyMat;
+        remainingOofTime -= Time.deltaTime;
+        if (remainingOofTime < 0) meshRenderer.material = originalEnemyMat;
     }
     public void DoDamage(int amount) {
         health -= amount;
@@ -29,7 +29,7 @@ public class EnemyStats : MonoBehaviour
         else
         {
             meshRenderer.material = oofMaterial;
-            oofTimer = 0;
+            remainingOofTime = oofTime;
         }
     }
     void Die() {
