@@ -9,10 +9,9 @@ public class EnemyShoot : MonoBehaviour {
 	EnemySpawner enemySpawner;
 	EnemyNavigation enemyNavigation;
 	RaycastHit hitInfo;
-	float stareTimer;
+	float remainingStareTimer;
 	bool hit;
 	PlayerStats playerStats;
-
 	// ---------------- METHODS ----------------
 	[SuppressMessage("ReSharper", "Unity.PerformanceCriticalCodeInvocation")]
 	public void SetScript(EnemySpawner script) {
@@ -35,13 +34,13 @@ public class EnemyShoot : MonoBehaviour {
 		if (playerStats.GetState() is PlayerStats.STATE_DEAD) return;
 		hit = Physics.Raycast(transform.position, transform.forward, out hitInfo,enemySpawner.targetRange);
 		hit = hit && hitInfo.transform == enemySpawner.targetPlayer.transform;
-		if (enemyNavigation.Stopped()) stareTimer += Time.deltaTime * enemySpawner.stoppedEnemyShootModifier;
-		else if (hit) stareTimer += Time.deltaTime;
-		else stareTimer -= Time.deltaTime * enemySpawner.stareTimeDecreaseModifier;
-		if (stareTimer >= enemySpawner.stareTimeBeforeShot) {
+		if (enemyNavigation.Stopped()) remainingStareTimer -= Time.deltaTime * enemySpawner.stoppedEnemyShootModifier;
+		else if (hit) remainingStareTimer -= Time.deltaTime;
+		else remainingStareTimer += Time.deltaTime * enemySpawner.stareTimeDecreaseModifier;
+		if (remainingStareTimer < 0) {
 			// ReSharper disable once Unity.PerformanceCriticalCodeInvocation
 			Shoot();
-			stareTimer = 0;
+			remainingStareTimer = enemySpawner.stareTimeBeforeShot;
 		}
 	}
 	void OnDrawGizmos() {

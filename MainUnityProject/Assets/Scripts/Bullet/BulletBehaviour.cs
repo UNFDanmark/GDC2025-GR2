@@ -9,9 +9,9 @@ public class BulletBehaviour : MonoBehaviour
 	[SerializeField] float bulletSpeed;
 	[SerializeField] int ricochets;
 	[SerializeField] float mass;
+	[SerializeField] float bounceTime;
 	// PRIVATE
-	float bounceTime = 0.1f;
-	float bounceTimer;
+	float remainingBounceTime;
 	bool bounceCooldown;
 	float lifeTimer;
 	GameObject bulletOrigin;
@@ -40,9 +40,9 @@ public class BulletBehaviour : MonoBehaviour
 	}
 	void Update() {
 		lifeTimer += Time.deltaTime;
-		if (bounceCooldown) bounceTimer += Time.deltaTime;
+		if (bounceCooldown) remainingBounceTime -= Time.deltaTime;
 		if (lifeTimer >= disappearTime) Destroy(gameObject);
-		if (bounceTimer >= bounceTime) {
+		if (remainingBounceTime < 0) {
 			bounceCooldown = true;
 			sphereCollider.material = originalBounce;
 		}
@@ -63,7 +63,7 @@ public class BulletBehaviour : MonoBehaviour
 			if (!bounceCooldown) {
 				ricochets--;
 				bounceCooldown = true;
-				bounceTimer = 0;
+				remainingBounceTime = bounceTime;
 				sphereCollider.material = null;
 			}
 		} 

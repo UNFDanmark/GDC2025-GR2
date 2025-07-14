@@ -9,7 +9,7 @@ public class PlayerStats : MonoBehaviour
     // ---------------- FIELDS ----------------
     [SerializeField] string playerID;
     [SerializeField] Slider uiHealthBar;
-    [SerializeField] int maxHealth;
+    public int maxHealth;
     [SerializeField] float hitTime;
     [SerializeField] Material[] materials;
     [SerializeField] bool canRespawn;
@@ -22,7 +22,7 @@ public class PlayerStats : MonoBehaviour
     // PRIVATE
     int state;
     bool oofed;
-    float hitTimer;
+    float remainingHitTime;
     MeshRenderer meshRenderer;
     PlayerRespawn playerRespawn;
     int health;
@@ -31,7 +31,7 @@ public class PlayerStats : MonoBehaviour
     public void SetState(int value) {
         if (value is STATE_HIT or STATE_PARRY_HIT) {
             oofed = true;
-            hitTimer = 0;
+            remainingHitTime = hitTime;
         }
         meshRenderer.material = materials[value];
         state = value;
@@ -59,6 +59,11 @@ public class PlayerStats : MonoBehaviour
             uiHealthBar.value = health;
         }
     }
+
+    public void SetHealth(int amount) {
+        health = amount;
+        uiHealthBar.value = health;
+    }
     void Awake() {
         meshRenderer = GetComponentInChildren<MeshRenderer>();
         playerRespawn = GetComponent<PlayerRespawn>();
@@ -76,8 +81,8 @@ public class PlayerStats : MonoBehaviour
     void Update()
     {
         if (state is STATE_DEAD) return;
-        hitTimer += Time.deltaTime;
-        if (oofed && hitTimer >= hitTime) {
+        remainingHitTime -= Time.deltaTime;
+        if (oofed && remainingHitTime < 0) {
             oofed = false;
             switch (state) {
                 case STATE_HIT:
@@ -96,7 +101,7 @@ public class PlayerStats : MonoBehaviour
             foreach (var _render in _renders) {
                 _render.enabled = false;
             }
-            GetComponent<Rigidbody>().isKinematic = false;
+            GetComponent<Rigidbody>().isKinematic = true;
             var _colliders = GetComponents<CapsuleCollider>();
             foreach (var _collider in _colliders) {
                 _collider.enabled = false;
@@ -107,6 +112,5 @@ public class PlayerStats : MonoBehaviour
         else {
             SceneManager.LoadScene("Enemy AI");
         }
-        
     }
 }

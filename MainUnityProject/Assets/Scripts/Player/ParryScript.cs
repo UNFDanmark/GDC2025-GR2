@@ -11,8 +11,8 @@ public class ParryScript : MonoBehaviour
 	[SerializeField] InputAction parryKey;
 	[SerializeField] float parryDuration;
     // PRIVATE
-    float parryCooldownTimer;
-    float parryDurationTimer;
+    float remainingParryCooldown;
+    float remainingParryDuration;
     PlayerStats playerStats;
     Vector3 reflectDirection;
     CapsuleCollider parryTrigger;
@@ -24,20 +24,19 @@ public class ParryScript : MonoBehaviour
 	    }
     }
     void Start() {
-	    parryCooldownTimer = parryCooldown;
 	    parryKey.Enable();
     }
     void Update() {
 	    if (playerStats.GetState() is PlayerStats.STATE_DEAD) return;
-	    parryCooldownTimer += Time.deltaTime;
-	    parryDurationTimer += Time.deltaTime;
-	    if (playerStats.GetParry() && parryDurationTimer >= parryDuration) {
+	    remainingParryCooldown -= Time.deltaTime;
+	    remainingParryDuration -= Time.deltaTime;
+	    if (playerStats.GetParry() && remainingParryDuration < 0) {
 		    playerStats.SetState(PlayerStats.STATE_DEFAULT);
 		    parryTrigger.enabled = false;
 	    }
-	    if (parryKey.WasPressedThisFrame() && parryCooldownTimer >= parryCooldown) {
-		    parryCooldownTimer = 0;
-		    parryDurationTimer = 0;
+	    if (parryKey.WasPressedThisFrame() && remainingParryCooldown < 0) {
+		    remainingParryCooldown = parryCooldown;
+		    remainingParryDuration = parryDuration;
 		    playerStats.SetState(PlayerStats.STATE_PARRY);
 		    parryTrigger.enabled = true;
 	    }
