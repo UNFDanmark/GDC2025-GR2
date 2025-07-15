@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6199029fb80e55248908e1efb83cca9f, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -238,7 +238,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6199029fb80e55248908e1efb83cca9f, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -276,6 +276,7 @@ GameObject:
   - component: {fileID: 6405781487976157397}
   - component: {fileID: 1660926305876751771}
   - component: {fileID: 1237876955108461347}
+  - component: {fileID: 6683439243559231854}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -292,7 +293,7 @@ Transform:
   m_GameObject: {fileID: 8441008217354624314}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.88, y: 0, z: -0.02}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -334,7 +335,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 116
@@ -377,15 +378,18 @@ MonoBehaviour:
   cameraMovement: {fileID: 0}
   playerID: Player1
   uiHealthBar: {fileID: 0}
-  maxHealth: 100
+  maxHealth: 10
   hitTime: 0.1
   materials:
-  - {fileID: 2100000, guid: 6199029fb80e55248908e1efb83cca9f, type: 2}
+  - {fileID: 0}
   - {fileID: 2100000, guid: 26ed48582cd05b243bb6fa6ffb16810e, type: 2}
   - {fileID: 2100000, guid: d10fdb025e01d4146ade55be231cccc5, type: 2}
   - {fileID: 2100000, guid: 42605a4b68699ee4eae9e0809dc0c81f, type: 2}
   canRespawn: 0
   spawnPoint: {fileID: 0}
+  body:
+  - {fileID: 7316116047303829189}
+  - {fileID: 7336674618094065915}
   speed: 5
   move:
     m_Name: Move
@@ -396,7 +400,7 @@ MonoBehaviour:
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 2D Vector
-      m_Id: d381d6e6-fee4-4f44-9751-19b2a2ac262d
+      m_Id: c96968ed-2fde-4e21-8e17-baac7f51be1b
       m_Path: 2DVector
       m_Interactions: 
       m_Processors: 
@@ -404,32 +408,32 @@ MonoBehaviour:
       m_Action: Move
       m_Flags: 4
     - m_Name: up
-      m_Id: dc1c5f8c-4804-4424-8518-d8ebca408f79
-      m_Path: <Keyboard>/w
+      m_Id: c7672746-c98d-4689-ab30-30547e1339d2
+      m_Path: 
       m_Interactions: 
       m_Processors: 
       m_Groups: 
       m_Action: Move
       m_Flags: 8
     - m_Name: down
-      m_Id: 4fe3a9a1-843f-49bc-bd03-30060ae6d566
-      m_Path: <Keyboard>/s
+      m_Id: 39b6f9b5-edf9-4493-86cc-82deec695370
+      m_Path: 
       m_Interactions: 
       m_Processors: 
       m_Groups: 
       m_Action: Move
       m_Flags: 8
     - m_Name: left
-      m_Id: f73c31aa-8df8-41a2-a704-0f77aa3def89
-      m_Path: <Keyboard>/a
+      m_Id: 8545338f-0e12-445a-85ac-a0e29b738bb0
+      m_Path: 
       m_Interactions: 
       m_Processors: 
       m_Groups: 
       m_Action: Move
       m_Flags: 8
     - m_Name: right
-      m_Id: 86f2757d-9170-42d9-8a75-77b1e9e59049
-      m_Path: <Keyboard>/d
+      m_Id: 1e13c7c9-21d0-44f8-b6b5-1cfdfff76005
+      m_Path: 
       m_Interactions: 
       m_Processors: 
       m_Groups: 
@@ -461,15 +465,15 @@ MonoBehaviour:
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: 27bcc5e3-47a3-4c9e-bc54-2050e0261cf5
-      m_Path: <Keyboard>/space
+      m_Id: 17c85003-9f62-47d1-8994-4b72a08cb405
+      m_Path: 
       m_Interactions: 
       m_Processors: 
       m_Groups: 
       m_Action: Parry Key
       m_Flags: 0
     m_Flags: 0
-  parryDuration: 0.3
+  parryDuration: 0.4
 --- !u!136 &1660926305876751771
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -505,11 +509,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4f2b550875100e44aab4c1571f364f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 0}
-  damageToOtherPlayer: 0
-  damageToEnemy: 0
-  shootingPoint: {fileID: 0}
-  shootingCooldown: 0
+  bulletPrefab: {fileID: 5511718195940570714, guid: d0aa30d0633285641905e1c247ca9005, type: 3}
+  damageToOtherPlayer: 2
+  damageToEnemy: 4
+  shootingPoint: {fileID: 2289677418724129139}
+  shootingCooldown: 1
   shootKey:
     m_Name: Shoot Key
     m_Type: 0
@@ -517,8 +521,34 @@ MonoBehaviour:
     m_Id: d99e7ece-4ee8-4ba4-8b21-58e10cb72f4b
     m_Processors: 
     m_Interactions: 
-    m_SingletonActionBindings: []
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: d6f8741e-85e2-46d1-9cc1-78c4353e690d
+      m_Path: 
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Shoot Key
+      m_Flags: 0
     m_Flags: 0
+--- !u!114 &6683439243559231854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8441008217354624314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3104d19125ed34242a722ead2119a35f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  respawnTime: 5
+  respawnTimeMax: 10
+  respawnTimeMin: 3
+  respawnLocation: {fileID: 0}
+  timeFadeModifier: 0.2
+  deathTimeAdd: 3
 --- !u!1 &9200465173989602913
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,7 +16,7 @@ public class PlayerShoot : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        shootKey.Enable();
     }
     
     // Update is called once per frame
@@ -30,6 +30,10 @@ public class PlayerShoot : MonoBehaviour
             _bs.SetOrigin(gameObject);
             _bs.OverrideEnemyDamage(damageToEnemy);
             _bs.OverridePlayerDamage(damageToOtherPlayer);
+            print("shoot!!!!!");
         }
     }
 }
+//ændringer jeg har lavet:
+// sat shootingPoint i scriptet til Shootingpoint child af player1
+// lavet shootKey.Enable i Start

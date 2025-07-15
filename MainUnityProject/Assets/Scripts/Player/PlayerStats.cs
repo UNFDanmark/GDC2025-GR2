@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -15,6 +17,7 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] Material[] materials;
     [SerializeField] bool canRespawn;
     [SerializeField] Transform spawnPoint;
+    [SerializeField] MeshRenderer[] body;
     public float speed;
     public InputAction move;
     public float rotationSpeed;
@@ -25,7 +28,6 @@ public class PlayerStats : MonoBehaviour
     int state;
     bool oofed;
     float remainingHitTime;
-    MeshRenderer meshRenderer;
     PlayerRespawn playerRespawn;
     int health;
     static int initializedPlayers;
@@ -35,7 +37,9 @@ public class PlayerStats : MonoBehaviour
             oofed = true;
             remainingHitTime = hitTime;
         }
-        meshRenderer.material = materials[value];
+        foreach (var _mesh in body) {
+            _mesh.material = materials[value];
+        }
         state = value;
     }
     public int GetState() {
@@ -67,7 +71,6 @@ public class PlayerStats : MonoBehaviour
         uiHealthBar.value = health;
     }
     void Awake() {
-        meshRenderer = GetComponentInChildren<MeshRenderer>();
         playerRespawn = GetComponent<PlayerRespawn>();
         SetState(STATE_DEFAULT);
         parry = GetComponent<ParryScript>();
@@ -97,8 +100,8 @@ public class PlayerStats : MonoBehaviour
             }
         }
     }
-    void Die()
-    {
+    
+    void Die() {
         if (canRespawn) {
             var _renders = GetComponentsInChildren<MeshRenderer>();
             foreach (var _render in _renders) {
@@ -113,7 +116,7 @@ public class PlayerStats : MonoBehaviour
             state = STATE_DEAD;
         }
         else {
-            SceneManager.LoadScene("Enemy AI");
+            SceneManager.LoadScene("GameReplicaForTesting");
         }
     }
 }
