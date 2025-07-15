@@ -65,6 +65,7 @@ public class EnemySpawner : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider other) {
+        if (other.isTrigger) return;
         if (other.transform.CompareTag("Player")) {
             spawnerEnabled = true;
         }

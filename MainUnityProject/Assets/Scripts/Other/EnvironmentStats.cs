@@ -11,6 +11,7 @@ public class EnvironmentStats : MonoBehaviour
     [SerializeField] string obstacleName;
     [SerializeField] CameraMovement cameraMovement;
     [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioSource whiteNoise;
     // PRIVATE
     static readonly int DESTROY_WIN_AMOUNT;
     static int destroyedAmount;
@@ -55,8 +56,9 @@ public class EnvironmentStats : MonoBehaviour
             cameraMovement.StartCinematic(_cinematic);
         }
         switch (name) {
-            case "Wall1":
+            case "Wall":
                 audioSource.Stop();
+                whiteNoise.Play();
                 break;
         }
         destroyedAmount++;
