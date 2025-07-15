@@ -6,7 +6,6 @@ public class ParryScript : MonoBehaviour
 {
     // ---------------- FIELDS ----------------
     [SerializeField] float parryCooldown;
-	public int addedBulletDamage;
 	public float addedBulletSpeed;
 	[SerializeField] InputAction parryKey;
 	[SerializeField] float parryDuration;

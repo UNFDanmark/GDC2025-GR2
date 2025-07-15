@@ -7,12 +7,14 @@ using UnityEngine.UI;
 public class PlayerStats : MonoBehaviour
 {
     // ---------------- FIELDS ----------------
+    [SerializeField] CameraMovement cameraMovement;
     [SerializeField] string playerID;
     [SerializeField] Slider uiHealthBar;
     public int maxHealth;
     [SerializeField] float hitTime;
     [SerializeField] Material[] materials;
     [SerializeField] bool canRespawn;
+    [SerializeField] Transform spawnPoint;
     public float speed;
     public InputAction move;
     public float rotationSpeed;
@@ -71,12 +73,13 @@ public class PlayerStats : MonoBehaviour
         parry = GetComponent<ParryScript>();
         move.Enable();
     }
-    void Start()
-    {
+    void Start() {
+        transform.position = spawnPoint.position;
+        transform.rotation = spawnPoint.rotation;
         uiHealthBar.maxValue = maxHealth;
         health = maxHealth;
         uiHealthBar.value = health;
-
+        cameraMovement.SetOffset();
     }
     void Update()
     {

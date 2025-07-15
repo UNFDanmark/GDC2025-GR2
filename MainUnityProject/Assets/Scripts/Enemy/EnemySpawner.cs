@@ -32,14 +32,8 @@ public class EnemySpawner : MonoBehaviour
     // PRIVATE
     float remainingSpawnTime;
     Transform playerTransform;
-    MeshRenderer meshRenderer;
     int remainingSpawns;
     // ---------------- METHODS ----------------
-    void Awake() {
-        meshRenderer = GetComponent<MeshRenderer>();
-        meshRenderer.enabled = false;
-
-    }
     void Start() {
         remainingSpawnTime = firstSpawnTime;
         remainingSpawns = totalSpawnAmount;
