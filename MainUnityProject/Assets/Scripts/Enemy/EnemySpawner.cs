@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -13,6 +14,9 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] int totalSpawnAmount;
     [SerializeField] float firstSpawnTime;
     [SerializeField] bool randomSpawnHeight;
+    public ParryScript player1;
+    public ParryScript player2;
+    [SerializeField] bool spawnerEnabled;
     [Header("Enemy Navigation")] 
     public float walkSpeed;
     public float turnSpeed;
@@ -41,6 +45,7 @@ public class EnemySpawner : MonoBehaviour
     }
     void Update()
     {
+        if (!spawnerEnabled) return;
         remainingSpawnTime -= Time.deltaTime;
         // ReSharper disable Unity.PerformanceCriticalCodeInvocation
         if (remainingSpawns > 0 && remainingSpawnTime < 0)
@@ -57,5 +62,11 @@ public class EnemySpawner : MonoBehaviour
             remainingSpawnTime = spawnCooldown;
         }
         // ReSharper restore Unity.PerformanceCriticalCodeInvocation
+    }
+
+    void OnTriggerEnter(Collider other) {
+        if (other.transform.CompareTag("Player")) {
+            spawnerEnabled = true;
+        }
     }
 }

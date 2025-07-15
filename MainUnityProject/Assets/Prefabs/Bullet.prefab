@@ -149,9 +149,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 406c8d78df63ec142806d627a479347b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  disappearTime: 10.74
+  disappearTime: 5
   baseDamage: 1
   bulletSpeed: 12
-  ricochets: 10
+  ricochets: 2
   mass: 100
-  bounceTime: 0
+  bounceTime: 0.1

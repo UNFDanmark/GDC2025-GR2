@@ -78,7 +78,7 @@ public class BulletBehaviour : MonoBehaviour
 		else Destroy(gameObject);
 	}
 	void OnTriggerEnter(Collider other) {
-		if (other.gameObject.CompareTag("Player")) {
+		if (other.gameObject.CompareTag("Player") && other.GetType() == typeof(CapsuleCollider)) {
 			var _player = other.gameObject.GetComponent<PlayerStats>();
 			if (_player.GetParry()) {
 				var _newDirection = other.gameObject.transform.forward;

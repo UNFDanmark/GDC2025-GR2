@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour {
         _newVelocity.z = _movementVector.y * playerStats.speed;
         rb.linearVelocity = _newVelocity;
         if (rb.linearVelocity.sqrMagnitude != 0) {
-            Vector3 _rotationVector = _newVelocity;
+            var _rotationVector = _newVelocity;
             _rotationVector.y = transform.rotation.y;
             _rotationVector.Normalize();
             //var _desiredRotation = Quaternion.LookRotation(_rotationVector);

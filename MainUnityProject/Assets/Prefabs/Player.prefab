@@ -277,6 +277,7 @@ GameObject:
   - component: {fileID: 1660926305876751771}
   - component: {fileID: 1237876955108461347}
   - component: {fileID: 6683439243559231854}
+  - component: {fileID: 8720993362458361006}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -390,6 +391,7 @@ MonoBehaviour:
   body:
   - {fileID: 7316116047303829189}
   - {fileID: 7336674618094065915}
+  alive: 0
   speed: 5
   move:
     m_Name: Move
@@ -455,7 +457,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parryCooldown: 2
-  addedBulletSpeed: 0
+  addedBulletSpeed: 4
   parryKey:
     m_Name: Parry Key
     m_Type: 0
@@ -474,6 +476,10 @@ MonoBehaviour:
       m_Flags: 0
     m_Flags: 0
   parryDuration: 0.4
+  enableAimAssist: 1
+  radius: 14
+  mainTarget: {fileID: 0}
+  rotationSpeed: 10
 --- !u!136 &1660926305876751771
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -547,9 +553,31 @@ MonoBehaviour:
   respawnTime: 5
   respawnTimeMax: 10
   respawnTimeMin: 3
-  respawnLocation: {fileID: 0}
   timeFadeModifier: 0.2
   deathTimeAdd: 3
+  respawning: 0
+  respawnPoint: {fileID: 0}
+--- !u!135 &8720993362458361006
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8441008217354624314}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 14
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &9200465173989602913
 GameObject:
   m_ObjectHideFlags: 0
