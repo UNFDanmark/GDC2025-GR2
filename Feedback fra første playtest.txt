@@ -1,0 +1,34 @@
+1. Hvordan føles movement?
+ * Relativt simpelt, men det føles fint.
+ * Det er helt fint, det er servicable til det spillet handler om. Der er ikke noget movement accel, hvilket er fint fordi jeg gerne vil vide hvor hurtigt jeg bevæger mig. Det er nok en smule langsomt, men jeg tror ikke det skal være meget hurtigere, fordi så tror jeg, jeg mister kontrollen.
+
+2. Hvordan føles parrying?
+ * Jeg kan godt lide det. Der må gerne være mere feedback og det er noget jeg bare spammer.
+ * Jeg kan godt lide når man får en masse bullets at parry på samme tid. Parry vinduet er lidt lille, man kan godt være mere generøs med det, selvfølgelig skal man stadig kunne tage skade, men lige nu kan man bare spamme. Især hvis parry skal være en offensiv evne.
+
+3. Foretrækker du at skyde eller at parry?
+ * Jeg havde ikke så mange chancer for at dræbe den anden spiller, NPC'erne gjorde det for mig, så jeg skulle bare holde mig selv i live, Det var sværere at prøve at dræbe den anden spiller end bare at overleve selv.
+ * Lige nu synes jeg det er nemmere at ramme hvis man skyder, men jeg synes parry er meget federe. Jeg tror det er en god løsning at skyde bullets direkte imod den anden spiller. I forhold til at skyde, kan bullet speed godt være hurtigere, både enemies og players. Hvis hitboxen var lidt større (usynligt) på både enemies og bullets. Det er noget man kan bruge til at polish game feel senere.
+
+4. Hvordan synes du enemies er balanced?
+ * Fint balanced, one-shot for den ene spiller, two-shot for den anden. Det bliver måske lidt et bullet hell. Det bliver ovevældene når der kommer for mange bullets. Hvis I ændrer parrying lidt kan det dog godt blive godt. Jeg tror ikke jeg ville gide at dræbe NPC'er, fordi de har for meget liv og der er for mange af dem, og det er svært at sigte.
+ * De er ekstremt stærke, jeg tror ikke kan slå dem ihjel. De skyder også virkelig hurtigt. Det er nok fint nok, fordi det er deres bullets man skal parry, men sørg for at de ikke er tanks oveni. De må gerne være glass cannons.
+
+5. Hvordan ville du ændre enemies for at balance dem bedre?
+ * Mindre health, og skru ned for deres fire rate. Hvis I ændre parrying kan dette også ændres.
+ * De kan måske skyde i bursts af tre. Hvis parry vinduet blev større ville fire rate være et mindre problem. Jeg vil gerne have det hen f et bullet hell, men hvor spilleren er stærke nok til at overleve. Du kan gøre enemy bullets svage, og gøre dem stærkere når de bliver parriet.
+
+6. Hvis enemies gav et benefit for at dræbe dem, ville du så sige at det er mere balanced?
+ * Ja det tror jeg, især hvis de var nemmere at dræbe.
+ * Jeg tror ikke det ville gøre det mere balanced. Det kunne være interessant, men det er ikke der hvor jeres core problem ligger. Det er en klar nice to have.
+
+7. Hvor intuitivt er spillet?
+ * Relativt er intuitivt, hvis jeg ikke var fortalt controls er jeg ikke helt sikker.
+ * Det med at skyde og parry, jeg forstår det godt, men det er lidt svært at ramme. Det bliver no fikset når parry laver auto aim. Det er rimelig intuitivt hvilken retning man skal gå dog. Inconclusive indtil i har fået en victory condition.
+
+
+In conclusion:
+ * Enemies er for stærke lige nu, giv dem mindre health, og få dem til at skyde lidt mindre bullets, gør så de bullets bouncer mindre. De skal ikke skyde som om de havde maskingeværer (De går rundt med glocks). Der må godt være mange bullets på skærmen, men så skal det være fordi der er mange enemies, ikke fordi hver enemy er lige så stærk som spilleren.
+ * Spillerne må godt bevæge sig en lille smule hurtigere.
+ * Parry skal være nemmere at bruge. Det vil sige at det ikke skal være en viable taktik at bare spamme parry knappen. Parry skal være stærkere, men også være lidt mere værdifuldt at bruge. Dette kan f.eks. gøres ved at gøre så bullets bliver hurtigere, større og gør mere skade for hver gang de bliver parriet. Gør parry vindue længere, men også cooldown lidt længere.
+ * Det skal være nemmere at sigte med parry. Det er det feedbacken siger, men hvad det betyder er at vores playtesters har svært ved at få bullets derhen hvor de gerne vil. Det betyder ikke nødvendigvis at bullets skal sendes i én bestemt retning alle sammen, fordi det er ikke altid derhen hvor spilleren faktisk gerne vil have dem (hvad nu hvis de vil parry tilbage til en NPC?). Måske kunne man bare invert bullets retning, med mindre de er cirka i samme retning som spilleren kigger (indenfor 30 grader eller noget), hvor de så bliver skudt i den præcise retning som spilleren kigger.
