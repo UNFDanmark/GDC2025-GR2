@@ -9,12 +9,9 @@ public class PlayerRespawn : MonoBehaviour {
     [SerializeField] float timeFadeModifier;
     [SerializeField] float deathTimeAdd;
     [HideInInspector] public bool respawning;
-    [SerializeField] CameraMovement cameraMovement;
-
-    [SerializeField] Vector3 respawnOffset;
+    [SerializeField] Transform respawnPoint;
     // PRIVATE
     float respawnRemainingTime;
-
     PlayerStats playerStats;
     // ---------------- METHODS ----------------
     void Awake() {
@@ -26,9 +23,10 @@ public class PlayerRespawn : MonoBehaviour {
         if (respawnTime < respawnTimeMin) respawnTime = respawnTimeMin;
         if (respawning && respawnRemainingTime < 0) {
             // ReSharper disable Unity.PerformanceCriticalCodeInvocation
+            playerStats.alive = true;
             playerStats.SetHealth(playerStats.maxHealth);
-            transform.position = cameraMovement.GetP2Spawn() + respawnOffset;
-            transform.rotation = Quaternion.identity;
+            transform.position = respawnPoint.position;
+            transform.rotation = respawnPoint.rotation;
             var _renders = GetComponentsInChildren<MeshRenderer>();
             foreach (var _render in _renders) {
                 _render.enabled = true;

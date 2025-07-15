@@ -18,6 +18,7 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] bool canRespawn;
     [SerializeField] Transform spawnPoint;
     [SerializeField] MeshRenderer[] body;
+    [HideInInspector] public bool alive;
     public float speed;
     public InputAction move;
     public float rotationSpeed;
@@ -75,6 +76,7 @@ public class PlayerStats : MonoBehaviour
         SetState(STATE_DEFAULT);
         parry = GetComponent<ParryScript>();
         move.Enable();
+        alive = true;
     }
     void Start() {
         transform.position = spawnPoint.position;
@@ -101,6 +103,7 @@ public class PlayerStats : MonoBehaviour
         }
     }
     void Die() {
+        alive = false;
         if (canRespawn) {
             var _renders = GetComponentsInChildren<MeshRenderer>();
             foreach (var _render in _renders) {
@@ -115,7 +118,6 @@ public class PlayerStats : MonoBehaviour
             state = STATE_DEAD;
         }
         else {
-            EnvironmentStats.Reset();
             SceneManager.LoadScene("GameReplicaForTesting");
         }
     }
