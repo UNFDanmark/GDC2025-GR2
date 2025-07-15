@@ -512,6 +512,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 5511718195940570714, guid: d0aa30d0633285641905e1c247ca9005, type: 3}
   damageToOtherPlayer: 2
   damageToEnemy: 4
+  damageToEnvironment: 1
   shootingPoint: {fileID: 2289677418724129139}
   shootingCooldown: 1
   shootKey:

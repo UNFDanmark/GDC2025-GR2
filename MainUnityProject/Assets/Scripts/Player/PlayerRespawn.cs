@@ -6,27 +6,29 @@ public class PlayerRespawn : MonoBehaviour {
     [SerializeField] float respawnTime;
     [SerializeField] float respawnTimeMax;
     [SerializeField] float respawnTimeMin;
-    [SerializeField] Transform respawnLocation;
     [SerializeField] float timeFadeModifier;
     [SerializeField] float deathTimeAdd;
+    [HideInInspector] public bool respawning;
+    [SerializeField] CameraMovement cameraMovement;
+
+    [SerializeField] Vector3 respawnOffset;
     // PRIVATE
     float respawnRemainingTime;
-    bool respawning;
+
     PlayerStats playerStats;
     // ---------------- METHODS ----------------
     void Awake() {
         playerStats = GetComponent<PlayerStats>();
     }
     void Update() {
-        print(respawnTime);
         respawnRemainingTime -= Time.deltaTime;
         if (!respawning) respawnTime -= Time.deltaTime * timeFadeModifier;
         if (respawnTime < respawnTimeMin) respawnTime = respawnTimeMin;
         if (respawning && respawnRemainingTime < 0) {
             // ReSharper disable Unity.PerformanceCriticalCodeInvocation
-            transform.position = respawnLocation.position;
-            transform.rotation = respawnLocation.rotation;
             playerStats.SetHealth(playerStats.maxHealth);
+            transform.position = cameraMovement.GetP2Spawn() + respawnOffset;
+            transform.rotation = Quaternion.identity;
             var _renders = GetComponentsInChildren<MeshRenderer>();
             foreach (var _render in _renders) {
                 _render.enabled = true;

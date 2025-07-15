@@ -27,6 +27,7 @@ public class EnemySpawner : MonoBehaviour
     public float stareTimeDecreaseModifier;
     public int damageToPlayers;
     public int damageToOtherEnemies;
+    public int damageToEnvironment;
     [Header("Enemy Stats")]
     public int enemyHealth;
     // PRIVATE

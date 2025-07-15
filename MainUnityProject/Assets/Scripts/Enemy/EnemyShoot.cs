@@ -25,6 +25,7 @@ public class EnemyShoot : MonoBehaviour {
 		_bs.SetOrigin(gameObject);
 		_bs.OverrideEnemyDamage(enemySpawner.damageToOtherEnemies);
 		_bs.OverridePlayerDamage(enemySpawner.damageToPlayers);
+		_bs.OverrideEnvironmentDamage(enemySpawner.damageToEnvironment);
 		// ReSharper restore Unity.PerformanceCriticalCodeInvocation
 	}
 	void Awake() {

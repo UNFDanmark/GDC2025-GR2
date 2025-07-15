@@ -21,7 +21,7 @@ public class PlayerStats : MonoBehaviour
     public float speed;
     public InputAction move;
     public float rotationSpeed;
-    public const int STATE_DEFAULT = 0, STATE_PARRY = 1, STATE_PARRY_HIT = 2, STATE_HIT = 3, STATE_DEAD = 4;
+    public const int STATE_DEFAULT = 0, STATE_PARRY = 1, STATE_PARRY_HIT = 2, STATE_HIT = 3, STATE_DEAD = 4, RESPAWNING = 5;
     [HideInInspector] public ParryScript parry;
     public string ID => playerID;
     // PRIVATE
@@ -100,7 +100,6 @@ public class PlayerStats : MonoBehaviour
             }
         }
     }
-    
     void Die() {
         if (canRespawn) {
             var _renders = GetComponentsInChildren<MeshRenderer>();
@@ -116,6 +115,7 @@ public class PlayerStats : MonoBehaviour
             state = STATE_DEAD;
         }
         else {
+            EnvironmentStats.Reset();
             SceneManager.LoadScene("GameReplicaForTesting");
         }
     }

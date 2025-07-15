@@ -7,19 +7,16 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField] GameObject bulletPrefab; 
     [SerializeField] int damageToOtherPlayer;
     [SerializeField] int damageToEnemy;
+    [SerializeField] int damageToEnvironment;
     [SerializeField] Transform shootingPoint;
     [SerializeField] float shootingCooldown;
     [SerializeField] InputAction shootKey;
     //PRIVATE
     float remainingShootingCooldown;
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         shootKey.Enable();
     }
-    
-    // Update is called once per frame
     void Update() {
         remainingShootingCooldown -= Time.deltaTime;
         if (shootKey.WasPressedThisFrame() && remainingShootingCooldown < 0) {
@@ -30,10 +27,7 @@ public class PlayerShoot : MonoBehaviour
             _bs.SetOrigin(gameObject);
             _bs.OverrideEnemyDamage(damageToEnemy);
             _bs.OverridePlayerDamage(damageToOtherPlayer);
-            print("shoot!!!!!");
+            _bs.OverrideEnvironmentDamage(damageToEnvironment);
         }
     }
 }
-//ændringer jeg har lavet:
-// sat shootingPoint i scriptet til Shootingpoint child af player1
-// lavet shootKey.Enable i Start

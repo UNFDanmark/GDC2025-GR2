@@ -18,7 +18,7 @@ public class BulletBehaviour : MonoBehaviour
 	Rigidbody rb;
 	SphereCollider sphereCollider;
 	PhysicsMaterial originalBounce;
-	int playerDamage, enemyDamage;
+	int playerDamage, enemyDamage, environmentDamage;
 	// ---------------- METHODS ----------------
 	void Awake() {
 		rb = GetComponent<Rigidbody>();
@@ -34,6 +34,9 @@ public class BulletBehaviour : MonoBehaviour
 	}
 	public void OverridePlayerDamage(int amount) {
 		playerDamage = amount - baseDamage;
+	}
+	public void OverrideEnvironmentDamage(int amount) {
+		environmentDamage = amount - baseDamage;
 	}
 	public void OverrideEnemyDamage(int amount) {
 		enemyDamage = amount - baseDamage;
@@ -57,6 +60,11 @@ public class BulletBehaviour : MonoBehaviour
 		else if (other.gameObject.CompareTag("Enemy")) {
 			var _enemy = other.gameObject.GetComponent<EnemyStats>();
 			_enemy.DoDamage(enemyDamage + baseDamage);
+			Destroy(gameObject);
+		}
+		else if (other.gameObject.CompareTag("Environment")) {
+			var _environment = other.gameObject.GetComponentInParent<EnvironmentStats>();
+			_environment.DoDamage(environmentDamage + baseDamage);
 			Destroy(gameObject);
 		}
 		if (ricochets > 0) {
