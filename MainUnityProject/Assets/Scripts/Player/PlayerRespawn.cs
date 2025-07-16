@@ -10,6 +10,7 @@ public class PlayerRespawn : MonoBehaviour {
     [SerializeField] float deathTimeAdd;
     [HideInInspector] public bool respawning;
     [SerializeField] Transform respawnPoint;
+    [SerializeField] GameObject respawnSmoke;
     // PRIVATE
     float respawnRemainingTime;
     PlayerStats playerStats;
@@ -27,6 +28,7 @@ public class PlayerRespawn : MonoBehaviour {
             playerStats.SetHealth(playerStats.maxHealth);
             transform.position = respawnPoint.position;
             transform.rotation = respawnPoint.rotation;
+            Instantiate(respawnSmoke, respawnPoint.position, respawnPoint.rotation);
             var _renders = GetComponentsInChildren<MeshRenderer>();
             foreach (var _render in _renders) {
                 _render.enabled = true;
