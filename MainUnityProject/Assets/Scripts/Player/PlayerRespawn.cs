@@ -39,6 +39,7 @@ public class PlayerRespawn : MonoBehaviour {
             GetComponent<ParryScript>().enabled = true;
             GetComponent<PlayerShoot>().enabled = true;
             GetComponent<PlayerMovement>().enabled = true;
+            GetComponentInChildren<Canvas>().enabled = true;
             playerStats.SetState(PlayerStats.STATE_DEFAULT);
             respawning = false;
             // ReSharper restore Unity.PerformanceCriticalCodeInvocation

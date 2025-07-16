@@ -10,8 +10,6 @@ public class EnvironmentStats : MonoBehaviour
     [SerializeField] int maxHealth;
     [SerializeField] string obstacleName;
     [SerializeField] CameraMovement cameraMovement;
-    [SerializeField] MusicSwapper musicToStop;
-    [SerializeField] MusicSwapper musicToStart;
     // PRIVATE
     const int DESTROY_WIN_AMOUNT = 5;
     static int destroyedAmount;
@@ -33,6 +31,7 @@ public class EnvironmentStats : MonoBehaviour
         if (remainingOofTime < 0) meshRenderer.material = originalEnvironmentMat;
     }
     public void DoDamage(int amount) {
+        
         health -= amount;
         if (health <= 0) Die();
         else
@@ -54,9 +53,14 @@ public class EnvironmentStats : MonoBehaviour
             cameraMovement.StartCinematic(_cinematic);
         }
         switch (obstacleName) {
-            case "Wall":
-                musicToStop.Stop();
-                if (musicToStart) musicToStart.Play();
+            case "Wall1":
+                MusicManager.Instance.StopTrack();
+                MusicManager.PlaySound(MusicManager.Instance.explosionReverb,true);
+                break;
+            case "Wall2":
+                MusicManager.Instance.StopTrack();
+                MusicManager.PlaySound(MusicManager.Instance.explosion,true);
+                MusicManager.Instance.StartTransition(2,1);
                 break;
         }
         destroyedAmount++;

@@ -20,6 +20,7 @@ public class EnemyShoot : MonoBehaviour {
 	}
 	void Shoot() {
 		// ReSharper disable Unity.PerformanceCriticalCodeInvocation
+		MusicManager.PlaySound(MusicManager.Instance.shoot,true);
 		var _bullet = Instantiate(enemySpawner.bulletPrefab, transform.position, Quaternion.identity);
 		var _bs = _bullet.GetComponent<BulletBehaviour>();
 		_bs.SetOrigin(gameObject);

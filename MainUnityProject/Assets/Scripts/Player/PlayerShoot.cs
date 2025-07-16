@@ -13,14 +13,21 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField] InputAction shootKey;
     //PRIVATE
     float remainingShootingCooldown;
+    PlayerStats playerStats;
+
+    void Awake() {
+        playerStats = GetComponent<PlayerStats>();
+    }
+
     void Start()
     {
         shootKey.Enable();
     }
     void Update() {
         remainingShootingCooldown -= Time.deltaTime;
-        if (shootKey.WasPressedThisFrame() && remainingShootingCooldown < 0) {
+        if (shootKey.WasPressedThisFrame() && remainingShootingCooldown < 0 && !playerStats.GetParry()) {
             remainingShootingCooldown = shootingCooldown;
+            MusicManager.PlaySound(MusicManager.Instance.kunaiThrow,true);
             var _bullet = Instantiate(bulletPrefab, shootingPoint.position, shootingPoint.rotation);
             // ReSharper disable once Unity.PerformanceCriticalCodeInvocation
             var _bs = _bullet.GetComponent<BulletBehaviour>();

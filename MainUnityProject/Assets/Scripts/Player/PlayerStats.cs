@@ -55,6 +55,7 @@ public class PlayerStats : MonoBehaviour
     }
     public void DoDamage(int amount)
     {
+        MusicManager.PlaySound(MusicManager.Instance.hurt,true);
         health -= amount;
         if (health <= 0) {
             health = 0;
@@ -117,6 +118,7 @@ public class PlayerStats : MonoBehaviour
             GetComponent<ParryScript>().enabled = false;
             GetComponent<PlayerShoot>().enabled = false;
             GetComponent<PlayerMovement>().enabled = false;
+            GetComponentInChildren<Canvas>().enabled = false;
             playerRespawn.StartRespawning();
             state = STATE_DEAD;
         }

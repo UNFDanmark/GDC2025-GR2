@@ -6,7 +6,9 @@ using UnityEngine.InputSystem;
 
 public class ParryScript : MonoBehaviour
 {
-    // ---------------- FIELDS ----------------
+	static readonly int SPIN = Animator.StringToHash("ParryActive");
+
+	// ---------------- FIELDS ----------------
     [SerializeField] float parryCooldown;
 	public float addedBulletSpeed;
 	[SerializeField] InputAction parryKey;
@@ -27,8 +29,10 @@ public class ParryScript : MonoBehaviour
     SphereCollider parryTargetTrigger;
     Transform aimTarget;
     Quaternion desiredRotation;
+    Animator animator;
     // ---------------- METHODS ----------------
     void Awake() {
+	    animator = GetComponentInChildren<Animator>();
 	    playerStats = GetComponent<PlayerStats>();
 	    targetPlayerStats = targetPlayer.GetComponent<PlayerStats>();
 	    foreach (var _collider in GetComponents<CapsuleCollider>()) {
@@ -50,8 +54,11 @@ public class ParryScript : MonoBehaviour
 	    if (playerStats.GetParry() && remainingParryDuration < 0) {
 		    playerStats.SetState(PlayerStats.STATE_DEFAULT);
 		    parryTrigger.enabled = false;
+		    animator.SetBool(SPIN, false);
 	    }
 	    if (parryKey.WasPressedThisFrame() && remainingParryCooldown < 0) {
+		    MusicManager.PlaySound(MusicManager.Instance.kunaiThrow,true);
+		    animator.SetBool(SPIN, true);
 		    remainingParryCooldown = parryCooldown;
 		    remainingParryDuration = parryDuration;
 		    playerStats.SetState(PlayerStats.STATE_PARRY);

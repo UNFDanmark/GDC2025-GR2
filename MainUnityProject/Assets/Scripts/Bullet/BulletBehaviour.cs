@@ -81,6 +81,7 @@ public class BulletBehaviour : MonoBehaviour
 		if (other.gameObject.CompareTag("Player") && other.GetType() == typeof(CapsuleCollider)) {
 			var _player = other.gameObject.GetComponent<PlayerStats>();
 			if (_player.GetParry()) {
+				MusicManager.PlaySound(MusicManager.Instance.parry2,true);
 				var _newDirection = other.gameObject.transform.forward;
 				_newDirection *= rb.linearVelocity.magnitude + _player.parry.addedBulletSpeed;
 				var _newPosition = other.gameObject.transform.position + other.gameObject.transform.forward;
