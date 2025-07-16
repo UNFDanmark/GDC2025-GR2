@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class Corpse : MonoBehaviour
 {
-    private float decayMaxTime = 20;
-    private float decayTime;
+    private float decayMaxTime = 15;
+    [SerializeField] float decayTime;
     [SerializeField] CorpseAnim anim;
     /*[SerializeField] private SkinnedMeshRenderer mat1;
     [SerializeField] private MeshRenderer[] mat2;*/
