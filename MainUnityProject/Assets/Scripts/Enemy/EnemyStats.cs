@@ -33,6 +33,8 @@ public class EnemyStats : MonoBehaviour
         }
     }
     void Die() {
+        if (enemySpawner.player1.EnemiesInTrigger.Contains(gameObject.transform)) enemySpawner.player1.EnemiesInTrigger.Remove(gameObject.transform);
+        if (enemySpawner.player2.EnemiesInTrigger.Contains(gameObject.transform)) enemySpawner.player2.EnemiesInTrigger.Remove(gameObject.transform);
         Destroy(gameObject);
     }
     public void SetScript(EnemySpawner script) {
