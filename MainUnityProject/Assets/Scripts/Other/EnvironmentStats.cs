@@ -10,21 +10,19 @@ public class EnvironmentStats : MonoBehaviour
     [SerializeField] int maxHealth;
     [SerializeField] string obstacleName;
     [SerializeField] CameraMovement cameraMovement;
-    [SerializeField] AudioSource audioSource;
-    [SerializeField] AudioSource whiteNoise;
+    [SerializeField] MusicSwapper musicToStop;
+    [SerializeField] MusicSwapper musicToStart;
     // PRIVATE
-    static readonly int DESTROY_WIN_AMOUNT;
+    const int DESTROY_WIN_AMOUNT = 5;
     static int destroyedAmount;
     int health;
     float remainingOofTime;
     Material originalEnvironmentMat;
     MeshRenderer meshRenderer;
-    static EnvironmentStats() {
-        DESTROY_WIN_AMOUNT = 3;
-    }
 
     // ---------------- METHODS ----------------
     void Awake() {
+        destroyedAmount = 0;
         meshRenderer = GetComponentInChildren<MeshRenderer>();
         originalEnvironmentMat = meshRenderer.material;
         health = maxHealth;
@@ -55,10 +53,10 @@ public class EnvironmentStats : MonoBehaviour
             _cinematic.z -= 2;
             cameraMovement.StartCinematic(_cinematic);
         }
-        switch (name) {
+        switch (obstacleName) {
             case "Wall":
-                audioSource.Stop();
-                whiteNoise.Play();
+                musicToStop.Stop();
+                if (musicToStart) musicToStart.Play();
                 break;
         }
         destroyedAmount++;

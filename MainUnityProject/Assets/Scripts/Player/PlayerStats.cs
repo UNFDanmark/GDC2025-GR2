@@ -114,6 +114,9 @@ public class PlayerStats : MonoBehaviour
             foreach (var _collider in _colliders) {
                 _collider.enabled = false;
             }
+            GetComponent<ParryScript>().enabled = false;
+            GetComponent<PlayerShoot>().enabled = false;
+            GetComponent<PlayerMovement>().enabled = false;
             playerRespawn.StartRespawning();
             state = STATE_DEAD;
         }

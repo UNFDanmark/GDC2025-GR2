@@ -6,30 +6,38 @@ using UnityEngine.Audio;
 public class MusicSwapper : MonoBehaviour {
     [SerializeField] AudioSource[] audioSources;
     [SerializeField] AudioSource whiteNoise;
-    bool started;
+    
+    bool started, stopped;
     int currentAudio;
     float timer;
     void OnTriggerEnter(Collider other) {
-        if (other.isTrigger) return;
+        if (other.isTrigger || started) return;
         if (other.transform.CompareTag("Player")) {
             var _player = other.GetComponent<PlayerStats>();
             if (_player.ID == "Player1") {
-                whiteNoise.Stop();
-                started = true;
+                Play();
             }
         }
     }
-
     void Update() {
         timer -= Time.deltaTime;
-        if (started) {
+        if (started && !stopped) {
             if (!audioSources[currentAudio].isPlaying) {
                 audioSources[currentAudio].Play();
-                timer = audioSources[currentAudio].clip.length;
+                timer = audioSources[currentAudio].clip.length-0.01f;
             }
-            if (timer < 0) {
+            if (timer < 0 && !audioSources[currentAudio].loop) {
                 currentAudio++;
             }
         }
+    }
+    public void Play() {
+        if (whiteNoise) whiteNoise.Stop();
+        started = true;
+    }
+    public void Stop() {
+        stopped = true;
+        audioSources[currentAudio].Stop();
+        whiteNoise.Play();
     }
 }
