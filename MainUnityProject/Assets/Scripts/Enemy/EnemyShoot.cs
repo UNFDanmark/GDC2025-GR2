@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 
 public class EnemyShoot : MonoBehaviour {
+	static readonly int SHOOT = Animator.StringToHash("Shoot");
 	// ---------------- FIELDS ----------------
 	
 	// PRIVATE
@@ -12,6 +13,7 @@ public class EnemyShoot : MonoBehaviour {
 	float remainingStareTimer;
 	bool hit;
 	PlayerStats playerStats;
+	Animator animator;
 	// ---------------- METHODS ----------------
 	[SuppressMessage("ReSharper", "Unity.PerformanceCriticalCodeInvocation")]
 	public void SetScript(EnemySpawner script) {
@@ -21,6 +23,9 @@ public class EnemyShoot : MonoBehaviour {
 	void Shoot() {
 		// ReSharper disable Unity.PerformanceCriticalCodeInvocation
 		MusicManager.PlaySound(MusicManager.Instance.shoot,true);
+		print("Shoot");
+		print(!animator);
+		animator.SetTrigger(SHOOT);
 		var _bullet = Instantiate(enemySpawner.bulletPrefab, transform.position, Quaternion.identity);
 		var _bs = _bullet.GetComponent<BulletBehaviour>();
 		_bs.SetOrigin(gameObject);
@@ -31,6 +36,7 @@ public class EnemyShoot : MonoBehaviour {
 	}
 	void Awake() {
 		enemyNavigation = GetComponentInParent<EnemyNavigation>();
+		animator = GetComponentInChildren<Animator>();
 	}
 	void Update() {
 		if (playerStats.GetState() is PlayerStats.STATE_DEAD) return;

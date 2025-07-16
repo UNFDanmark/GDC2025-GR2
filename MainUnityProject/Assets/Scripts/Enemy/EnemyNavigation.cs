@@ -4,16 +4,19 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyNavigation : MonoBehaviour {
+	static readonly int WALKING = Animator.StringToHash("Walking");
 	// ---------------- FIELDS ----------------
 	
 	// PRIVATE
 	EnemySpawner enemySpawner;
 	NavMeshAgent navMeshAgent;
 	PlayerStats playerStats;
+	Animator animator;
 	// ---------------- METHODS ----------------
 	void Awake()
 	{
 		navMeshAgent = GetComponent<NavMeshAgent>();
+		animator = GetComponentInChildren<Animator>();
 	}
 	[SuppressMessage("ReSharper", "Unity.PerformanceCriticalCodeInvocation")]
 	public void SetScript(EnemySpawner script) {
@@ -26,6 +29,12 @@ public class EnemyNavigation : MonoBehaviour {
 	}
 	void Update()
 	{
+		if (Stopped()) {
+			animator.SetBool(WALKING,false);
+		}
+		else {
+			animator.SetBool(WALKING,true);
+		}
 		if (!enemySpawner.targetPlayer || playerStats.GetState() is PlayerStats.STATE_DEAD) {
 			navMeshAgent.SetDestination(transform.position);
 			return;

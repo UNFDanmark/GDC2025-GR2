@@ -16,14 +16,14 @@ public class BulletBehaviour : MonoBehaviour
 	float lifeTimer;
 	GameObject bulletOrigin;
 	Rigidbody rb;
-	SphereCollider sphereCollider;
+	Collider bulletCollider;
 	PhysicsMaterial originalBounce;
 	int playerDamage, enemyDamage, environmentDamage;
 	// ---------------- METHODS ----------------
 	void Awake() {
 		rb = GetComponent<Rigidbody>();
-		sphereCollider = GetComponent<SphereCollider>();
-		originalBounce = sphereCollider.material;
+		bulletCollider = GetComponent<Collider>();
+		originalBounce = bulletCollider.material;
 	}
 	void Start() {
 		rb.mass = mass;
@@ -47,7 +47,7 @@ public class BulletBehaviour : MonoBehaviour
 		if (lifeTimer >= disappearTime) Destroy(gameObject);
 		if (remainingBounceTime < 0) {
 			bounceCooldown = true;
-			sphereCollider.material = originalBounce;
+			bulletCollider.material = originalBounce;
 		}
 	}
 	void OnCollisionEnter(Collision other) {
@@ -72,7 +72,7 @@ public class BulletBehaviour : MonoBehaviour
 				ricochets--;
 				bounceCooldown = true;
 				remainingBounceTime = bounceTime;
-				sphereCollider.material = null;
+				bulletCollider.material = null;
 			}
 		} 
 		else Destroy(gameObject);
@@ -87,6 +87,7 @@ public class BulletBehaviour : MonoBehaviour
 				var _newPosition = other.gameObject.transform.position + other.gameObject.transform.forward;
 				_newPosition.y = transform.position.y;
 				transform.position = _newPosition;
+				GetComponentInChildren<Transform>().Rotate(0,0,180);
 				rb.linearVelocity = _newDirection;
 				_player.SetState(PlayerStats.STATE_PARRY_HIT);
 			}

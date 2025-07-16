@@ -38,7 +38,7 @@ public class EnemyStats : MonoBehaviour
     void Die() {
         if (enemySpawner.player1.EnemiesInTrigger.Contains(gameObject.transform)) enemySpawner.player1.EnemiesInTrigger.Remove(gameObject.transform);
         if (enemySpawner.player2.EnemiesInTrigger.Contains(gameObject.transform)) enemySpawner.player2.EnemiesInTrigger.Remove(gameObject.transform);
-        Instantiate(corpse, new Vector3(transform.position.x, 0.01f, transform.position.z), transform.rotation);
+        Instantiate(corpse, new Vector3(transform.position.x, 0.05f, transform.position.z), transform.rotation);
         Destroy(gameObject);
     }
     public void SetScript(EnemySpawner script) {
