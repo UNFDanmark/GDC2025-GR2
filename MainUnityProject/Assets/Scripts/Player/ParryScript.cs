@@ -16,6 +16,7 @@ public class ParryScript : MonoBehaviour
 	[SerializeField] float radius;
 	[SerializeField] float rotationSpeed;
 	[SerializeField] GameObject targetPlayer;
+	[SerializeField] bool instantParry;
 	public readonly List<Transform> EnemiesInTrigger = new();
 	// PRIVATE
 	float remainingParryCooldown;
@@ -72,9 +73,10 @@ public class ParryScript : MonoBehaviour
 				    }
 			    }
 			    desiredRotation = _targetFound ? Quaternion.LookRotation(aimTarget.position - transform.position) : Quaternion.LookRotation(transform.position + transform.forward);
+			    if (instantParry) transform.rotation = desiredRotation;
 		    }
 	    }
-	    if (playerStats.GetParry()) transform.rotation = Quaternion.RotateTowards(transform.rotation, desiredRotation, rotationSpeed);
+	    if (playerStats.GetParry() && !instantParry) transform.rotation = Quaternion.RotateTowards(transform.rotation, desiredRotation, rotationSpeed);
     }
     void OnTriggerEnter(Collider other) {
 	    if (other.transform.CompareTag("Enemy")) {
