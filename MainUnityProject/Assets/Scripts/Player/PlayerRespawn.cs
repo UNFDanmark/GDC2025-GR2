@@ -36,6 +36,9 @@ public class PlayerRespawn : MonoBehaviour {
             foreach (var _collider in _colliders) {
                 _collider.enabled = true;
             }
+            GetComponent<ParryScript>().enabled = true;
+            GetComponent<PlayerShoot>().enabled = true;
+            GetComponent<PlayerMovement>().enabled = true;
             playerStats.SetState(PlayerStats.STATE_DEFAULT);
             respawning = false;
             // ReSharper restore Unity.PerformanceCriticalCodeInvocation
