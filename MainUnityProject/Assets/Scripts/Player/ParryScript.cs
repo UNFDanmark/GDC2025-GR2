@@ -35,10 +35,8 @@ public class ParryScript : MonoBehaviour
 	    animator = GetComponentInChildren<Animator>();
 	    playerStats = GetComponent<PlayerStats>();
 	    targetPlayerStats = targetPlayer.GetComponent<PlayerStats>();
-	    foreach (var _collider in GetComponents<CapsuleCollider>()) {
-		    if (_collider.isTrigger) parryTrigger = _collider;
-	    }
-	    parryTargetTrigger = GetComponent<SphereCollider>();
+	    parryTrigger = GetComponentInChildren<CapsuleCollider>();
+	    parryTargetTrigger = GetComponentInChildren<SphereCollider>();
 	    parryTargetTrigger.radius = radius;
     }
     void Start() {

@@ -36,12 +36,13 @@ public class EnemyShoot : MonoBehaviour {
 	}
 	void Awake() {
 		enemyNavigation = GetComponentInParent<EnemyNavigation>();
-		animator = GetComponentInChildren<Animator>();
+		animator = GetComponentInParent<Animator>();
 	}
 	void Update() {
 		if (playerStats.GetState() is PlayerStats.STATE_DEAD) return;
 		hit = Physics.Raycast(transform.position, transform.forward, out hitInfo,enemySpawner.targetRange);
 		hit = hit && hitInfo.transform == enemySpawner.targetPlayer.transform;
+		print(hit);
 		if (enemyNavigation.Stopped()) remainingStareTimer -= Time.deltaTime * enemySpawner.stoppedEnemyShootModifier;
 		else if (hit) remainingStareTimer -= Time.deltaTime;
 		else remainingStareTimer += Time.deltaTime * enemySpawner.stareTimeDecreaseModifier;

@@ -8,9 +8,11 @@ public class CameraMovement : MonoBehaviour {
     [SerializeField] float player2Weight;
     [SerializeField] Transform averageObject;
     [SerializeField] float transitionModifer;
+    [SerializeField] float zoomModifier;
     [SerializeField] float cinematicFocusWeight;
     [SerializeField] float cinematicTime;
-    [SerializeField] float cinematicZoom;
+    [SerializeField] Vector3 cinematicZoom;
+    public bool cinematicTrigger;
     float remainingCinematicTime;
     float cinematicsCustomWeight;
     float player2CustomWeight;
@@ -31,11 +33,17 @@ public class CameraMovement : MonoBehaviour {
             if (cinematicsCustomWeight < cinematicFocusWeight) {
                 cinematicsCustomWeight += Time.deltaTime * transitionModifer;
             }
-            if (currentOffset.y > cinematicZoom) currentOffset.y -= Time.deltaTime * transitionModifer;
+            if (currentOffset.x > cinematicZoom.x) currentOffset.x -= Time.deltaTime * zoomModifier;
+            if (currentOffset.y > cinematicZoom.y) currentOffset.y -= Time.deltaTime * zoomModifier;
+            if (currentOffset.z > cinematicZoom.z) currentOffset.z -= Time.deltaTime * zoomModifier;
         }
-        else {
+        else if (!cinematicTrigger) {
             if (cinematicsCustomWeight > 0) cinematicsCustomWeight -= Time.deltaTime * transitionModifer;
-            if (currentOffset.y < cameraOffset.y) currentOffset.y += Time.deltaTime * transitionModifer;
+            if (currentOffset.x < cameraOffset.x) currentOffset.x += Time.deltaTime * zoomModifier;
+            if (currentOffset.y < cameraOffset.y) currentOffset.y += Time.deltaTime * zoomModifier;
+            if (currentOffset.z < cameraOffset.z) currentOffset.z += Time.deltaTime * zoomModifier;
+            if (cinematicsCustomWeight <= 0 && currentOffset.x >= cameraOffset.x && currentOffset.y >= cameraOffset.y &&
+                currentOffset.z >= cameraOffset.z) cinematicTrigger = true;
         }
         if (playerRespawn.alive) {
             if (player2CustomWeight < player2Weight) player2CustomWeight += Time.deltaTime * transitionModifer;
@@ -48,7 +56,7 @@ public class CameraMovement : MonoBehaviour {
         averageObject.position = average;
     }
     public void SetOffset() {
-        average = (player1.position * player1Weight + player2.transform.position * player2CustomWeight + cinematicFocus * cinematicsCustomWeight) / (player1Weight+player2CustomWeight+cinematicsCustomWeight);
+        average = (player1.position * player1Weight + player2.transform.position * player2CustomWeight) / (player1Weight+player2CustomWeight);
         cameraOffset = transform.position - average;
         currentOffset = cameraOffset;
     }

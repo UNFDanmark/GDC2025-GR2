@@ -48,7 +48,8 @@ public class EnemyNavigation : MonoBehaviour {
 		}
 	}
 	public bool Stopped() {
-		return navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance;
+		if (navMeshAgent.hasPath) return navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance;
+		return false;
 	}
 
 	void OnDrawGizmos()

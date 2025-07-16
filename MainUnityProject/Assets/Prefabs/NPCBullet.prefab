@@ -62,11 +62,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5873371895713495250, guid: d0aa30d0633285641905e1c247ca9005, type: 3}
       propertyPath: ricochets
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5873371895713495250, guid: d0aa30d0633285641905e1c247ca9005, type: 3}
       propertyPath: disappearTime
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8566165691651703561, guid: d0aa30d0633285641905e1c247ca9005, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
