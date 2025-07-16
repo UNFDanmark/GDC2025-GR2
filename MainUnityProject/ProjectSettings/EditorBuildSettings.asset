@@ -11,6 +11,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Programmering/GameReplicaForTesting.unity
     guid: d78929d4330ab194697b5e00407a49bd
+  - enabled: 1
+    path: Assets/Scenes/Player1Win.unity
+    guid: d3c7e49969ca790498db9cea4ee9e38d
+  - enabled: 1
+    path: Assets/Scenes/Player2Win.unity
+    guid: 260198453bee5ba4e89e5ec4ee14c13f
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
