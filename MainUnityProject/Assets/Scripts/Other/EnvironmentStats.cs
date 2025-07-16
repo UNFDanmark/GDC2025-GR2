@@ -11,7 +11,7 @@ public class EnvironmentStats : MonoBehaviour
     [SerializeField] string obstacleName;
     [SerializeField] CameraMovement cameraMovement;
     // PRIVATE
-    const int DESTROY_WIN_AMOUNT = 5;
+    const int DESTROY_WIN_AMOUNT = 4;
     static int destroyedAmount;
     int health;
     float remainingOofTime;
@@ -62,11 +62,14 @@ public class EnvironmentStats : MonoBehaviour
                 MusicManager.PlaySound(MusicManager.Instance.explosion,true);
                 MusicManager.Instance.StartTransition(2,1);
                 break;
+             case "ShieldGen":
+                 MusicManager.PlaySound(MusicManager.Instance.explosion,true);
+                 break;
         }
         destroyedAmount++;
         if (destroyedAmount >= DESTROY_WIN_AMOUNT) {
             Reset();
-            SceneManager.LoadScene("GameReplicaForTesting");
+            SceneManager.LoadScene("Main Menu");
         }
         Destroy(gameObject);
     }

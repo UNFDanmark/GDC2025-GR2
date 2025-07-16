@@ -7,6 +7,8 @@ public class MusicSwapper : MonoBehaviour {
     [SerializeField] int section;
     [SerializeField] bool transition;
     [SerializeField] float headStart;
+    [SerializeField] CameraMovement cameraTrigger;
+    [SerializeField] bool ACTUALMUSIC;
     bool started;
     float timer;
     int currentAudio;
@@ -17,10 +19,13 @@ public class MusicSwapper : MonoBehaviour {
             var _player = other.GetComponent<PlayerStats>();
             if (_player.ID == "Player1") {
                 started = true;
-                MusicManager.Instance.StopTrack();
-                if (transition && headStart != 0) MusicManager.Instance.StartTransition(section, headStart);
-                else if (transition) MusicManager.Instance.StartTransition(section);
-                else MusicManager.Instance.StartTrack(section);
+                if (cameraTrigger) cameraTrigger.cinematicTrigger = false;
+                if (ACTUALMUSIC) {
+                    MusicManager.Instance.StopTrack();
+                    if (transition && headStart != 0) MusicManager.Instance.StartTransition(section, headStart);
+                    else if (transition) MusicManager.Instance.StartTransition(section);
+                    else MusicManager.Instance.StartTrack(section);
+                }
             }
         }
     }

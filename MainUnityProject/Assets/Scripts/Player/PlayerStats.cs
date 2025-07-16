@@ -12,17 +12,19 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] CameraMovement cameraMovement;
     [SerializeField] string playerID;
     [SerializeField] Slider uiHealthBar;
+    [SerializeField] Image[] fullHearts;
     public int maxHealth;
     [SerializeField] float hitTime;
     [SerializeField] Material[] materials;
     [SerializeField] bool canRespawn;
     [SerializeField] Transform spawnPoint;
     [SerializeField] MeshRenderer[] body;
+    public GameObject model;
     [HideInInspector] public bool alive;
     public float speed;
     public InputAction move;
     public float rotationSpeed;
-    public const int STATE_DEFAULT = 0, STATE_PARRY = 1, STATE_PARRY_HIT = 2, STATE_HIT = 3, STATE_DEAD = 4, RESPAWNING = 5;
+    public const int STATE_DEFAULT = 0, STATE_PARRY = 1, STATE_PARRY_HIT = 2, STATE_HIT = 3, STATE_DEAD = 4;
     [HideInInspector] public ParryScript parry;
     public string ID => playerID;
     // PRIVATE
@@ -59,18 +61,30 @@ public class PlayerStats : MonoBehaviour
         health -= amount;
         if (health <= 0) {
             health = 0;
-            uiHealthBar.value = health;
+            UpdateHealthUI(health);
             Die();
         }
         else
         {
-            uiHealthBar.value = health;
+            UpdateHealthUI(health);
+        }
+    }
+
+    void UpdateHealthUI(int amount) {
+        print("amount"+amount);
+        uiHealthBar.value = amount;
+        for (var _i = 0; _i < maxHealth; _i++) {
+            fullHearts[_i].gameObject.SetActive(false);
+        }
+        for (var _i = 0; _i < amount; _i++) {
+            print("loop");
+            fullHearts[_i].gameObject.SetActive(true);
         }
     }
 
     public void SetHealth(int amount) {
         health = amount;
-        uiHealthBar.value = health;
+        UpdateHealthUI(health);
     }
     void Awake() {
         playerRespawn = GetComponent<PlayerRespawn>();
@@ -84,7 +98,7 @@ public class PlayerStats : MonoBehaviour
         transform.rotation = spawnPoint.rotation;
         uiHealthBar.maxValue = maxHealth;
         health = maxHealth;
-        uiHealthBar.value = health;
+        UpdateHealthUI(health);
         cameraMovement.SetOffset();
     }
     void Update()
@@ -111,19 +125,21 @@ public class PlayerStats : MonoBehaviour
                 _render.enabled = false;
             }
             GetComponent<Rigidbody>().isKinematic = true;
-            var _colliders = GetComponents<CapsuleCollider>();
+            var _colliders = GetComponentsInChildren<Collider>();
             foreach (var _collider in _colliders) {
                 _collider.enabled = false;
             }
+            GetComponent<Collider>().enabled = false;
             GetComponent<ParryScript>().enabled = false;
             GetComponent<PlayerShoot>().enabled = false;
             GetComponent<PlayerMovement>().enabled = false;
             GetComponentInChildren<Canvas>().enabled = false;
+            model.SetActive(false);
             playerRespawn.StartRespawning();
             state = STATE_DEAD;
         }
         else {
-            SceneManager.LoadScene("GameReplicaForTesting");
+            SceneManager.LoadScene("Main Menu");
         }
     }
 }

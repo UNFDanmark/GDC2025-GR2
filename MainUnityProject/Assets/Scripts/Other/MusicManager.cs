@@ -4,7 +4,7 @@ using UnityEngine;
 public class MusicManager : MonoBehaviour {
     // SOUNDS
     public static MusicManager Instance;
-    public MusicManager() {
+    void Awake() {
         Instance = this;
     }
     public AudioSource explosion, explosionReverb, hurt, hurt1, hurt2, hurt3, kunaiThrow, parry2, parryMiss, shoot, walk, obstacleHit;
