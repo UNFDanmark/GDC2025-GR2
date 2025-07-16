@@ -66,7 +66,7 @@ public class EnvironmentStats : MonoBehaviour
         destroyedAmount++;
         if (destroyedAmount >= DESTROY_WIN_AMOUNT) {
             Reset();
-            SceneManager.LoadScene("GameReplicaForTesting");
+            SceneManager.LoadScene("2");
         }
         Destroy(gameObject);
     }
