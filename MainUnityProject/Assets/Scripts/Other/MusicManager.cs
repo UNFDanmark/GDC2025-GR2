@@ -7,7 +7,7 @@ public class MusicManager : MonoBehaviour {
     public MusicManager() {
         Instance = this;
     }
-    public AudioSource explosion, explosionReverb, hurt, hurt1, hurt2, hurt3, kunaiThrow, parry2, parryMiss, shoot, walk;
+    public AudioSource explosion, explosionReverb, hurt, hurt1, hurt2, hurt3, kunaiThrow, parry2, parryMiss, shoot, walk, obstacleHit;
     [SerializeField] AudioSource[] transitions;
     [SerializeField] AudioSource[] sections;
     [SerializeField] float timerThreshold;

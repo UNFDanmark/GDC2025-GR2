@@ -31,7 +31,7 @@ public class EnvironmentStats : MonoBehaviour
         if (remainingOofTime < 0) meshRenderer.material = originalEnvironmentMat;
     }
     public void DoDamage(int amount) {
-        
+        MusicManager.PlaySound(MusicManager.Instance.obstacleHit,true);
         health -= amount;
         if (health <= 0) Die();
         else

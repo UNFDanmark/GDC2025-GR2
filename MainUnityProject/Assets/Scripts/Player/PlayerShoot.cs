@@ -3,7 +3,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerShoot : MonoBehaviour
-{  
+{
+    static readonly int SHOOT = Animator.StringToHash("Shoot");
     [SerializeField] GameObject bulletPrefab; 
     [SerializeField] int damageToOtherPlayer;
     [SerializeField] int damageToEnemy;
@@ -14,9 +15,10 @@ public class PlayerShoot : MonoBehaviour
     //PRIVATE
     float remainingShootingCooldown;
     PlayerStats playerStats;
-
+    Animator animator;
     void Awake() {
         playerStats = GetComponent<PlayerStats>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     void Start()
@@ -26,6 +28,7 @@ public class PlayerShoot : MonoBehaviour
     void Update() {
         remainingShootingCooldown -= Time.deltaTime;
         if (shootKey.WasPressedThisFrame() && remainingShootingCooldown < 0 && !playerStats.GetParry()) {
+            animator.SetTrigger(SHOOT);
             remainingShootingCooldown = shootingCooldown;
             MusicManager.PlaySound(MusicManager.Instance.kunaiThrow,true);
             var _bullet = Instantiate(bulletPrefab, shootingPoint.position, shootingPoint.rotation);
