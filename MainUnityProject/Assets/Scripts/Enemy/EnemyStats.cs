@@ -26,6 +26,7 @@ public class EnemyStats : MonoBehaviour
         if (remainingOofTime < 0) meshRenderer.material = originalEnemyMat;
     }
     public void DoDamage(int amount) {
+        print("oof");
         MusicManager.PlaySound(MusicManager.Instance.hurt1,true);
         health -= amount;
         if (health <= 0) Die();
