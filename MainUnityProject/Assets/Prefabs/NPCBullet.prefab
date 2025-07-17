@@ -68,6 +68,10 @@ PrefabInstance:
       propertyPath: disappearTime
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 8370201352948566009, guid: d0aa30d0633285641905e1c247ca9005, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: dfe6d5d706b708b439ab3038bbce0b1e, type: 2}
     - target: {fileID: 8566165691651703561, guid: d0aa30d0633285641905e1c247ca9005, type: 3}
       propertyPath: m_IsActive
       value: 0
