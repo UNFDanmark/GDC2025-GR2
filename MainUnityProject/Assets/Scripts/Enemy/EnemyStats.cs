@@ -12,12 +12,12 @@ public class EnemyStats : MonoBehaviour
     int health;
     float remainingOofTime;
     Material originalEnemyMat;
-    MeshRenderer meshRenderer;
+    SkinnedMeshRenderer meshRenderer;
 
-    [SerializeField] private GameObject corpse;
+    [SerializeField] GameObject corpse;
     // ---------------- METHODS ----------------
     void Awake() {
-        meshRenderer = GetComponentInChildren<MeshRenderer>();
+        meshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
         originalEnemyMat = meshRenderer.material;
     }
     void Update()

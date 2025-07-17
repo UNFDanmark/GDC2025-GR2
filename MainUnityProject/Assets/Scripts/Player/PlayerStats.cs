@@ -18,7 +18,7 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] Material[] materials;
     [SerializeField] bool canRespawn;
     [SerializeField] Transform spawnPoint;
-    [SerializeField] MeshRenderer[] body;
+    [SerializeField] SkinnedMeshRenderer body;
     public GameObject model;
     [HideInInspector] public bool alive;
     public float speed;
@@ -40,9 +40,7 @@ public class PlayerStats : MonoBehaviour
             oofed = true;
             remainingHitTime = hitTime;
         }
-        foreach (var _mesh in body) {
-            _mesh.material = materials[value];
-        }
+        body.material = materials[value];
         state = value;
     }
     public int GetState() {
@@ -87,6 +85,7 @@ public class PlayerStats : MonoBehaviour
         UpdateHealthUI(health);
     }
     void Awake() {
+        materials[0] = body.material;
         playerRespawn = GetComponent<PlayerRespawn>();
         SetState(STATE_DEFAULT);
         parry = GetComponent<ParryScript>();

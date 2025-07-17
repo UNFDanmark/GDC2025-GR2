@@ -26,6 +26,9 @@ public class MusicSwapper : MonoBehaviour {
                     else if (transition) MusicManager.Instance.StartTransition(section);
                     else MusicManager.Instance.StartTrack(section);
                 }
+                else {
+                    cameraTrigger.ChangeWeight();
+                }
             }
         }
     }

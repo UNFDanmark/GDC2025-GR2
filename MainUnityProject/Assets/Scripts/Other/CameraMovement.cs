@@ -6,6 +6,8 @@ public class CameraMovement : MonoBehaviour {
     [SerializeField] GameObject player2;
     [SerializeField] float player1Weight;
     [SerializeField] float player2Weight;
+    [SerializeField] float p1Weight2;
+    [SerializeField] float p2Weight2;
     [SerializeField] Transform averageObject;
     [SerializeField] float transitionModifer;
     [SerializeField] float zoomModifier;
@@ -22,6 +24,11 @@ public class CameraMovement : MonoBehaviour {
     Vector3 currentOffset;
     Vector3 average;
     PlayerStats playerRespawn;
+
+    public void ChangeWeight() {
+        player1Weight = p1Weight2;
+        player2Weight = p2Weight2;
+    }
     void Awake() {
         playerRespawn = player2.GetComponent<PlayerStats>();
         player2CustomWeight = player2Weight;
