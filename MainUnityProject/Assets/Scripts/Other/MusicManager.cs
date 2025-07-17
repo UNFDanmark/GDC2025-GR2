@@ -27,11 +27,10 @@ public class MusicManager : MonoBehaviour {
         sections[section].Stop();
     }
     public void StartTransition(int section, float headStart) {
-        if (section == 0) throw new ArgumentException("Cannot transition to track 0");
         inTransition = true;
         currentTrack = section;
-        transitions[section-1].Play();
-        timer = transitions[section-1].clip.length-headStart;
+        transitions[section].Play();
+        timer = transitions[section].clip.length-headStart;
     }
     public void StartTransition(int section) {
         StartTransition(section,timerThreshold);
