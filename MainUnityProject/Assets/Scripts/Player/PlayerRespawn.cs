@@ -23,7 +23,6 @@ public class PlayerRespawn : MonoBehaviour {
     void Update() {
         respawnRemainingTime -= Time.deltaTime;
         if (respawnTimer) respawnTimer.value = respawnRemainingTime;
-        print(respawnRemainingTime);
         if (!respawning) respawnTime -= Time.deltaTime * timeFadeModifier;
         if (respawnTime < respawnTimeMin) respawnTime = respawnTimeMin;
         if (respawning && respawnRemainingTime < 0) {

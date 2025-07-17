@@ -23,8 +23,6 @@ public class EnemyShoot : MonoBehaviour {
 	void Shoot() {
 		// ReSharper disable Unity.PerformanceCriticalCodeInvocation
 		MusicManager.PlaySound(MusicManager.Instance.shoot,true);
-		print("Shoot");
-		print(!animator);
 		animator.SetTrigger(SHOOT);
 		var _bullet = Instantiate(enemySpawner.bulletPrefab, transform.position, Quaternion.identity);
 		var _bs = _bullet.GetComponent<BulletBehaviour>();
@@ -42,7 +40,6 @@ public class EnemyShoot : MonoBehaviour {
 		if (playerStats.GetState() is PlayerStats.STATE_DEAD) return;
 		hit = Physics.Raycast(transform.position, transform.forward, out hitInfo,enemySpawner.targetRange);
 		hit = hit && hitInfo.transform == enemySpawner.targetPlayer.transform;
-		print(hit);
 		if (enemyNavigation.Stopped()) remainingStareTimer -= Time.deltaTime * enemySpawner.stoppedEnemyShootModifier;
 		else if (hit) remainingStareTimer -= Time.deltaTime;
 		else remainingStareTimer += Time.deltaTime * enemySpawner.stareTimeDecreaseModifier;

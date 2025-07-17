@@ -69,13 +69,11 @@ public class PlayerStats : MonoBehaviour
     }
 
     void UpdateHealthUI(int amount) {
-        print("amount"+amount);
         uiHealthBar.value = amount;
         for (var _i = 0; _i < maxHealth; _i++) {
             fullHearts[_i].gameObject.SetActive(false);
         }
         for (var _i = 0; _i < amount; _i++) {
-            print("loop");
             fullHearts[_i].gameObject.SetActive(true);
         }
     }

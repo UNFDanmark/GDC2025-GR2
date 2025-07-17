@@ -25,12 +25,10 @@ public class PlayerMovement : MonoBehaviour {
         if (_movementVector is not { x: 0, y: 0 }) {
             MusicManager.PlaySound(MusicManager.Instance.walk,true);
             animator.SetBool(WALKING,true);
-            print("Walking");
         }
         else {
             MusicManager.StopSound(MusicManager.Instance.walk);
             animator.SetBool(WALKING, false);
-            print("Standing");
         }
         var _newVelocity = rb.linearVelocity;
         _newVelocity.x = _movementVector.x * playerStats.speed;
