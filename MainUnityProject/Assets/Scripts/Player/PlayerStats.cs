@@ -139,7 +139,7 @@ public class PlayerStats : MonoBehaviour
             state = STATE_DEAD;
         }
         else {
-            SceneManager.LoadScene("Main Menu");
+            SceneManager.LoadScene(3);
         }
     }
 }

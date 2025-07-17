@@ -69,7 +69,7 @@ public class EnvironmentStats : MonoBehaviour
         destroyedAmount++;
         if (destroyedAmount >= DESTROY_WIN_AMOUNT) {
             Reset();
-            SceneManager.LoadScene("Main Menu");
+            SceneManager.LoadScene(2);
         }
         Destroy(gameObject);
     }
