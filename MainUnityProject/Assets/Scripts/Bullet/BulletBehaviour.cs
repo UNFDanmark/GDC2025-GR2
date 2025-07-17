@@ -79,7 +79,7 @@ public class BulletBehaviour : MonoBehaviour
 	}
 	void OnTriggerEnter(Collider other) {
 		if (other.gameObject.CompareTag("Player") && other.GetType() == typeof(CapsuleCollider)) {
-			var _player = other.gameObject.GetComponent<PlayerStats>();
+			var _player = other.gameObject.GetComponentInParent<PlayerStats>();
 			if (_player.GetParry()) {
 				MusicManager.PlaySound(MusicManager.Instance.parry2,true);
 				var _newDirection = other.gameObject.transform.forward;

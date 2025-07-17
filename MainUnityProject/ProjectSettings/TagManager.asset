@@ -6,7 +6,6 @@ TagManager:
   tags:
   - Bullet
   - Item
-  - Player2
   - Enemy
   - Environment
   layers:

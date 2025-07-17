@@ -54,7 +54,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7943767828248571192, guid: e41f54b36281cf14faea1aed6a84c465, type: 3}
       propertyPath: disappearTime
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8341238400526148528, guid: e41f54b36281cf14faea1aed6a84c465, type: 3}
       propertyPath: m_Name

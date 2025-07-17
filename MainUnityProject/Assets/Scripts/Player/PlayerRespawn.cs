@@ -22,13 +22,14 @@ public class PlayerRespawn : MonoBehaviour {
     }
     void Update() {
         respawnRemainingTime -= Time.deltaTime;
-        respawnTimer.value = respawnRemainingTime;
+        if (respawnTimer) respawnTimer.value = respawnRemainingTime;
+        print(respawnRemainingTime);
         if (!respawning) respawnTime -= Time.deltaTime * timeFadeModifier;
         if (respawnTime < respawnTimeMin) respawnTime = respawnTimeMin;
         if (respawning && respawnRemainingTime < 0) {
             // ReSharper disable Unity.PerformanceCriticalCodeInvocation
             playerStats.alive = true;
-            respawnTimer.gameObject.SetActive(false);
+            if (respawnTimer) respawnTimer.gameObject.SetActive(false);
             playerStats.SetHealth(playerStats.maxHealth);
             transform.position = respawnPoint.position;
             transform.rotation = respawnPoint.rotation;
@@ -55,11 +56,11 @@ public class PlayerRespawn : MonoBehaviour {
         }
     }
     public void StartRespawning() {
-        respawnTimer.gameObject.SetActive(true);
+        if (respawnTimer) respawnTimer.gameObject.SetActive(true);
         respawnTime += deathTimeAdd;
-        respawnTimer.maxValue = respawnTime;
         if (respawnTime > respawnTimeMax) respawnTime = respawnTimeMax;
         respawnRemainingTime = respawnTime;
         respawning = true;
+        if (respawnTimer) respawnTimer.maxValue = respawnTime;
     }
 }
